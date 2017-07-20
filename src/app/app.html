@@ -6,8 +6,9 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
+    <ion-list class="side-menu-item-background">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon padding-right name="{{p.icon}}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>

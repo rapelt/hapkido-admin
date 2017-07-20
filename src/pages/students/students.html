@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Students</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only [navPush]="studentPage" [navParams]="{ mode: 'New'}">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let student of students" [navPush]="studentPage" [navParams]="{ mode: 'Edit', student: student}">
+      {{student.name.firstname}} {{student.name.lastname}}
+
+    </button>
+  </ion-list>
+  List all students
+</ion-content>
