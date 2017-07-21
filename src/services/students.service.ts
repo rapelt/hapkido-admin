@@ -19,4 +19,12 @@ export class StudentService {
     getAllStudents(): Observable<Student []> {
         return this.http.get(this.userUrl + "all").map((response: Response) => response.json());
     }
+
+    createStudent(student: Student): Observable<Student> {
+        return this.http.post(this.userUrl + "create", student).map((response: Response) => response.json());
+    }
+
+    updateStudent(student: Student): Observable<Student> {
+        return this.http.post(this.userUrl + "all", student).map((response: Response) => response.json());
+    }
 }

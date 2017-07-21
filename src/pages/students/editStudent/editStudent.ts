@@ -3,6 +3,7 @@ import {NavController, NavParams, ToastController} from 'ionic-angular';
 import {Student} from "../../../models/student";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Name} from "../../../models/name";
+import {StudentService} from "../../../services/students.service";
 
 @Component({
   selector: 'page-student',
@@ -21,7 +22,10 @@ export class EditStudentPage implements OnInit{
     {id: 2, name: 'Yellow 2'}
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public toastCtrl: ToastController,
+              public studentService: StudentService) {
   }
 
   ngOnInit(){
@@ -39,7 +43,6 @@ export class EditStudentPage implements OnInit{
   }
 
   initaliseForm() {
-    console.log(this.student);
     this.studentForm = new FormGroup({
       'firstname' : new FormControl(this.student.name.firstname, Validators.required),
       'lastname' : new FormControl(this.student.name.lastname, Validators.required),
@@ -54,9 +57,24 @@ export class EditStudentPage implements OnInit{
     this.student.name.firstname = studentFormValues.firstname;
     this.student.name.lastname = studentFormValues.lastname;
     this.student.grade = studentFormValues.grade;
-    this.student.pinNumber = studentFormValues.pin ? studentFormValues.pin : '0000';
-    this.student.hbId = studentFormValues.hbid;
+    if(this.mode === 'New'){
+      this.student.hbId = studentFormValues.hbid;
+      this.createStudent();
+    }
+
+    if(this.mode === 'Edit'){
+      this.student.pinNumber = studentFormValues.pin ? studentFormValues.pin : '0000';
+      this.updateStudent();
+    }
 
     this.navCtrl.pop();
+  }
+
+  createStudent() {
+    this.studentService.createStudent(this.student);
+  }
+
+  updateStudent() {
+    this.studentService.updateStudent(this.student);
   }
 }

@@ -9,6 +9,13 @@ export class StudentServiceMock {
 
     getAllStudents(): Observable<Student []> {
         return Observable.of(StudentServiceMock.students);
+    }
 
+    updateStudent(student: Student): Observable<Student> {
+        return Observable.of(StudentServiceMock.students[0]);
+    }
+
+    createStudent(student: Student): Observable<Student> {
+        return Observable.of(StudentServiceMock.students[0]);
     }
 }

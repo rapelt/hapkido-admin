@@ -16,8 +16,6 @@ let fixture: ComponentFixture<StudentsPage>;
 let de: DebugElement;
 let el: HTMLElement;
 
-
-
 describe('Page: Students Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
