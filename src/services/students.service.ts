@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
+import {Student} from "../models/student";
 
 @Injectable()
 export class StudentService {
@@ -12,15 +13,11 @@ export class StudentService {
         console.log('Hello StudentService Provider');
     }
 
-    getStudent(): Observable<Response> {
+    getStudent(): Observable<Student> {
         return this.http.get(this.userUrl + "hb030").map((response: Response) => response.json());
     }
 
-    getAllStudents() {
-        console.log("get al; studnets", this.userUrl + "all");
-        return this.http.get(this.userUrl + "all").map((response: Response) => response.json().students);
+    getAllStudents(): Observable<Student []> {
+        return this.http.get(this.userUrl + "all").map((response: Response) => response.json());
     }
-
-
-
 }

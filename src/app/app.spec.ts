@@ -8,32 +8,24 @@ import {SplashScreen} from "@ionic-native/splash-screen";
 let comp: MyApp;
 let fixture: ComponentFixture<MyApp>;
 
-describe('Component: Root Component', () => {
+describe('Component: App Component', () => {
 
     beforeEach(async(() => {
-
         TestBed.configureTestingModule({
-
             declarations: [MyApp],
-
             providers: [
                 StatusBar,
                 SplashScreen
             ],
-
             imports: [
                 IonicModule.forRoot(MyApp)
             ]
-
         }).compileComponents();
-
     }));
 
     beforeEach(() => {
-
         fixture = TestBed.createComponent(MyApp);
         comp    = fixture.componentInstance;
-
     });
 
     afterEach(() => {
@@ -42,10 +34,8 @@ describe('Component: Root Component', () => {
     });
 
     it('is created', () => {
-
         expect(fixture).toBeTruthy();
         expect(comp).toBeTruthy();
-
     });
 
     it('initialises with a root page of HomePage', () => {

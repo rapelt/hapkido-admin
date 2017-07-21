@@ -13,28 +13,20 @@ let el: HTMLElement;
 describe('Page: Home Page', () => {
 
     beforeEach(async(() => {
-
         TestBed.configureTestingModule({
-
             declarations: [MyApp, HomePage],
-
             providers: [
                 NavController
             ],
-
             imports: [
                 IonicModule.forRoot(MyApp)
             ]
-
         }).compileComponents();
-
     }));
 
     beforeEach(() => {
-
         fixture = TestBed.createComponent(HomePage);
         comp    = fixture.componentInstance;
-
     });
 
     afterEach(() => {
@@ -55,7 +47,6 @@ describe('Page: Home Page', () => {
     });
 
     it('can set the title to a supplied value', () => {
-
         de = fixture.debugElement.query(By.css('ion-title'));
         el = de.nativeElement;
 
@@ -63,7 +54,6 @@ describe('Page: Home Page', () => {
         fixture.detectChanges();
         expect(comp['title']).toEqual('Your Page');
         expect(el.textContent).toContain('Your Page');
-
     });
 
 });

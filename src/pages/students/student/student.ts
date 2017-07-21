@@ -16,6 +16,10 @@ export class StudentPage implements OnInit{
   ngOnInit(){
       this.mode = this.navParams.get("mode");
       this.student = this.navParams.get("student");
+
+      if(this.mode == null){
+          this.mode = "New";
+      }
   }
 
 }

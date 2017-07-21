@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Student} from "../../models/student";
 import {StudentService} from "../../services/students.service";
-import {StudentPage} from "./student/students";
+import {StudentPage} from "./student/student";
 
 @Component({
   selector: 'page-students',
@@ -18,7 +18,6 @@ export class StudentsPage implements OnInit{
 
   ngOnInit(){
     this.studentService.getAllStudents().subscribe((studentsList: Student []) => {
-          console.log(studentsList);
           this.students = studentsList;
           }, (error) => {
           console.log(error);
