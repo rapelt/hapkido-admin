@@ -10,7 +10,6 @@ export class StudentService {
     userUrl: string = 'https://tfub8jwq4h.execute-api.ap-southeast-2.amazonaws.com/dev/student/';
 
     constructor(public http: Http) {
-        console.log('Hello StudentService Provider');
     }
 
     getStudent(): Observable<Student> {
