@@ -10,7 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {StudentsPage} from "../pages/students/students";
 import {StudentService} from "../services/students.service";
 import {HttpModule} from "@angular/http";
-import {StudentPage} from "../pages/students/student/student";
+import {StudentPage} from "../pages/students/student/editStudent";
 
 @NgModule({
   declarations: [

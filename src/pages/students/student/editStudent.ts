@@ -4,7 +4,7 @@ import {Student} from "../../../models/student";
 
 @Component({
   selector: 'page-student',
-  templateUrl: 'student.html',
+  templateUrl: 'editStudent.html',
 })
 export class StudentPage implements OnInit{
   student: Student;

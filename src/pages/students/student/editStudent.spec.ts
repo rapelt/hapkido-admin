@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import {IonicModule, NavController, NavParams} from 'ionic-angular';
 import { MyApp } from '../../../app/app.component';
-import {StudentPage} from "./student";
+import {StudentPage} from "./editStudent";
 import {NavParamsMock} from "../../../testHelperMethods/NavParamsMock";
 import {StudentService} from "../../../services/students.service";
 import {ConnectionBackend, Http, HttpModule} from "@angular/http";
@@ -14,7 +14,7 @@ let fixture: ComponentFixture<StudentPage>;
 let de: DebugElement;
 let el: HTMLElement;
 
-describe('Page: Student Page', () => {
+describe('Page: Edit Student Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
 
