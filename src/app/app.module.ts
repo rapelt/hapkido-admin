@@ -10,14 +10,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {StudentsPage} from "../pages/students/students";
 import {StudentService} from "../services/students.service";
 import {HttpModule} from "@angular/http";
-import {StudentPage} from "../pages/students/student/editStudent";
+import {EditStudentPage} from "../pages/students/editStudent/editStudent";
+import {ToastHelper} from "../helper/toast.helper";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     StudentsPage,
-    StudentPage
+    EditStudentPage
   ],
   imports: [
     BrowserModule,
@@ -29,13 +30,14 @@ import {StudentPage} from "../pages/students/student/editStudent";
     MyApp,
     HomePage,
     StudentsPage,
-    StudentPage
+    EditStudentPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    StudentService
+    StudentService,
+    ToastHelper
   ]
 })
 export class AppModule {}

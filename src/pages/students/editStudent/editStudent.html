@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>{{mode}} Student</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Firstname</ion-label>
+        <ion-input formControlName="firstname" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Lastname</ion-label>
+        <ion-input formControlName="lastname" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>HB ID</ion-label>
+        <ion-input formControlName="hbid" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Pin Number</ion-label>
+        <ion-input formControlName="pin" type="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Grade</ion-label>
+        <ion-select formControlName="grade">
+          <ion-option *ngFor="let grade of grades" [value]="grade.id">{{grade.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <button type="submit" ion-button block>{{mode}} Student</button>
+
+  </form>
+
+
+
+
+</ion-content>

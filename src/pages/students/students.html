@@ -7,7 +7,7 @@
     <ion-title>Students</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only [navPush]="studentPage" [navParams]="{ mode: 'New'}">
+      <button ion-button icon-only [navPush]="editStudentPage" [navParams]="{ mode: 'New'}">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let student of students" [navPush]="studentPage" [navParams]="{ mode: 'Edit', student: student}">
+    <button ion-item *ngFor="let student of students" [navPush]="editStudentPage" [navParams]="{ mode: 'Edit', student: student}">
       {{student.name.firstname}} {{student.name.lastname}}
 
     </button>

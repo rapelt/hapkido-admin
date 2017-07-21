@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Student} from "../../models/student";
 import {StudentService} from "../../services/students.service";
-import {StudentPage} from "./student/editStudent";
+import {EditStudentPage} from "./editStudent/editStudent";
 
 @Component({
   selector: 'page-students',
@@ -11,7 +11,7 @@ import {StudentPage} from "./student/editStudent";
 export class StudentsPage implements OnInit{
   students: any;
 
-  studentPage: any = StudentPage;
+  editStudentPage: any = EditStudentPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private studentService: StudentService) {
   }

@@ -1,3 +1,4 @@
+/*
 var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
@@ -12,7 +13,7 @@ exports.config = {
         defaultTimeoutInterval: 30000,
         print: function() {}
     },
-    specs: ['./e2e/**/*.e2e-spec.ts'],
+    specs: ['./e2e/!**!/!*.e2e-spec.ts'],
     baseUrl: 'http://localhost:8100',
     useAllAngular2AppRoots: true,
     beforeLaunch: function() {
@@ -27,4 +28,4 @@ exports.config = {
     onPrepare: function() {
         jasmine.getEnv().addReporter(new SpecReporter());
     }
-}
+}*/
