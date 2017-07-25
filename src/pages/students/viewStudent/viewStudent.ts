@@ -24,6 +24,7 @@ export class ViewStudentPage implements OnInit{
   }
 
   presentActionSheet() {
+    console.log(this.actionSheetCtrl);
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Student Details Menu',
       buttons: [
