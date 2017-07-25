@@ -3,10 +3,11 @@ import {NavController, NavParams, ToastController} from 'ionic-angular';
 import {Student} from "../../../models/student";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Name} from "../../../models/name";
-import {StudentService} from "../../../services/students.service";
+import {GradeService} from "../../../services/grade.service";
+import {StudentService} from "../../../services/student/student.service";
 
 @Component({
-  selector: 'page-student',
+  selector: 'page-editStudent',
   templateUrl: 'editStudent.html',
 })
 export class EditStudentPage implements OnInit{
@@ -16,19 +17,18 @@ export class EditStudentPage implements OnInit{
 
   studentForm: FormGroup;
 
-  grades: any = [
-    {id: 0, name: 'White'},
-    {id: 1, name: 'Yellow 1'},
-    {id: 2, name: 'Yellow 2'}
-  ];
+  grades: any = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              public studentService: StudentService) {
+              public studentService: StudentService,
+              public gradeService: GradeService) {
   }
 
   ngOnInit(){
+    this.grades = this.gradeService.getAllGrades();
+
     this.mode = this.navParams.get("mode");
 
     if(this.mode === 'New'){

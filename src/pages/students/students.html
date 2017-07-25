@@ -16,10 +16,9 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let student of students" [navPush]="editStudentPage" [navParams]="{ mode: 'Edit', student: student}">
-      {{student.name.firstname}} {{student.name.lastname}}
-
+    <button ion-item *ngFor="let student of students" [navPush]="viewStudentPage" [navParams]="{ student: student}">
+      <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+      <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
     </button>
   </ion-list>
-  List all students
 </ion-content>

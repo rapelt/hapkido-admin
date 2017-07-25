@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>View {{student.name.firstname}} {{student.name.lastname}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        General Information
+      </ion-card-title>
+      <p>Grade: {{gradeService.getLongDisplayName(student.grade)}}</p>
+      <p>HB ID: {{student.hbId}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Dates
+      </ion-card-title>
+      <p>Last Class: Never</p>
+      <p>Last Grading: Never</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Feedback
+      </ion-card-title>
+      <p>This is the last feedback we provided</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer>
+    <button id="UT-actionsheet" ion-button full end (click)="presentActionSheet()">Student Menu</button>
+  </ion-footer>
+</ion-content>

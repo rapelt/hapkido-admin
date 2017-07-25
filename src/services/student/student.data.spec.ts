@@ -7,9 +7,9 @@ import {
     XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import {StudentService} from "./students.service";
-import {Name} from "../models/name";
-import {Student} from "../models/student";
+import {StudentData} from "./student.data";
+import {Name} from "../../models/name";
+import {Student} from "../../models/student";
 
 describe('Student Service', () => {
 
@@ -18,7 +18,7 @@ describe('Student Service', () => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
-                StudentService,
+                StudentData,
                 { provide: XHRBackend, useClass: MockBackend },
             ]
         });
@@ -30,7 +30,7 @@ describe('Student Service', () => {
         const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
 
         it('should return an Observable<Array<Student>>',
-            inject([StudentService, XHRBackend], (studentService, mockBackend) => {
+            inject([StudentData, XHRBackend], (studentService, mockBackend) => {
 
                 const mockResponse = [rebekah];
 
@@ -54,7 +54,7 @@ describe('Student Service', () => {
         const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
 
         it('should return an Observable<Student>',
-            inject([StudentService, XHRBackend], (studentService, mockBackend) => {
+            inject([StudentData, XHRBackend], (studentService, mockBackend) => {
 
                 const mockResponse = rebekah;
 

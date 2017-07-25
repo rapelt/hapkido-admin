@@ -34,7 +34,7 @@
       <ion-item>
         <ion-label>Grade</ion-label>
         <ion-select formControlName="grade">
-          <ion-option *ngFor="let grade of grades" [value]="grade.id">{{grade.name}}</ion-option>
+          <ion-option *ngFor="let grade of grades" [value]="grade.id">{{grade.longName}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-list>

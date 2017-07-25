@@ -51,6 +51,7 @@
     "@types/node": "^8.0.14",
     "angular-cli": "^1.0.0-beta.28.3",
     "codecov": "^2.2.0",
+    "ionic-mocks": "^0.10.1",
     "jasmine": "^2.6.0",
     "jasmine-core": "^2.6.4",
     "jasmine-spec-reporter": "^4.1.1",

@@ -4,4 +4,8 @@ export class Name {
         public lastname: string
 
     ){}
+
+    displayName () {
+            return this.firstname + " " + this.lastname;
+    }
 }

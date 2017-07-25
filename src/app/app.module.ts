@@ -8,17 +8,21 @@ import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {StudentsPage} from "../pages/students/students";
-import {StudentService} from "../services/students.service";
+import {StudentData} from "../services/student/student.data";
 import {HttpModule} from "@angular/http";
 import {EditStudentPage} from "../pages/students/editStudent/editStudent";
-import {ToastHelper} from "../helper/toast.helper";
+import {ViewStudentPage} from "../pages/students/viewStudent/viewStudent";
+import {GradeService} from "../services/grade.service";
+import {StudentEvents} from "../services/student/student.events";
+import {StudentService} from "../services/student/student.service";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     StudentsPage,
-    EditStudentPage
+    EditStudentPage,
+    ViewStudentPage
   ],
   imports: [
     BrowserModule,
@@ -30,14 +34,17 @@ import {ToastHelper} from "../helper/toast.helper";
     MyApp,
     HomePage,
     StudentsPage,
-    EditStudentPage
+    EditStudentPage,
+    ViewStudentPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    StudentData,
+    StudentEvents,
     StudentService,
-    ToastHelper
+    GradeService
   ]
 })
 export class AppModule {}

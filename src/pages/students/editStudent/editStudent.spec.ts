@@ -1,15 +1,17 @@
 import {TestBed, ComponentFixture, async} from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import {IonicModule, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
+import {IonicModule, NavController, NavParams} from 'ionic-angular';
 import { MyApp } from '../../../app/app.component';
 import {EditStudentPage} from "./editStudent";
 import {NavParamsMock} from "../../../testHelperMethods/NavParamsMock";
-import {StudentService} from "../../../services/students.service";
+import {StudentData} from "../../../services/student/student.data";
 import {ConnectionBackend, Http, HttpModule} from "@angular/http";
 import {Student} from "../../../models/student";
 import {Name} from "../../../models/name";
-import {StudentServiceMock} from "../../../services/student.service.mock";
-import {Observable} from "rxjs";
+import {StudentDataMock} from "../../../services/student/student.data.mock";
+import {GradeService} from "../../../services/grade.service";
+import {StudentService} from "../../../services/student/student.service";
+import {StudentEvents} from "../../../services/student/student.events";
 
 let editStudentPage: EditStudentPage;
 let fixture: ComponentFixture<EditStudentPage>;
@@ -20,7 +22,6 @@ describe('Page: Edit Student Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
     const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
-    let studentServiceMock: StudentServiceMock;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -28,9 +29,12 @@ describe('Page: Edit Student Page', () => {
             providers: [
                 NavController,
                 {provide: NavParams, useClass: NavParamsMock},
-                {provide: StudentService, useClass: StudentServiceMock},
+                {provide: StudentData, useClass: StudentDataMock},
                 Http,
-                ConnectionBackend
+                ConnectionBackend,
+                GradeService,
+                StudentService,
+                StudentEvents
             ],
             imports: [
                 IonicModule.forRoot(MyApp),

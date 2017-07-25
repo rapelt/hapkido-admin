@@ -4,12 +4,15 @@ import {IonicModule, NavController, NavParams} from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import {StudentsPage} from "./students";
 import {NavParamsMock} from "../../testHelperMethods/NavParamsMock";
-import {StudentService} from "../../services/students.service";
+import {StudentData} from "../../services/student/student.data";
 import {ConnectionBackend, Http, HttpModule, RequestOptions} from "@angular/http";
-import {StudentServiceMock} from "../../services/student.service.mock";
+import {StudentDataMock} from "../../services/student/student.data.mock";
 import {Name} from "../../models/name";
 import {Student} from "../../models/student";
 import {Observable} from "rxjs";
+import {GradeService} from "../../services/grade.service";
+import {StudentService} from "../../services/student/student.service";
+import {StudentEvents} from "../../services/student/student.events";
 
 let studentsPage: StudentsPage;
 let fixture: ComponentFixture<StudentsPage>;
@@ -21,8 +24,7 @@ describe('Page: Students Page', () => {
     const name : Name = new Name('Rebekah', 'Apelt');
     const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
 
-    let studentServiceMock: StudentServiceMock;
-
+    let studentServiceMock: StudentDataMock;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -30,9 +32,12 @@ describe('Page: Students Page', () => {
             providers: [
                 NavController,
                 {provide: NavParams, useClass: NavParamsMock},
-                {provide: StudentService, useClass: StudentServiceMock},
+                {provide: StudentData, useClass: StudentDataMock},
                 Http,
-                ConnectionBackend
+                ConnectionBackend,
+                GradeService,
+                StudentService,
+                StudentEvents
             ],
             imports: [
                 IonicModule.forRoot(MyApp),
@@ -44,8 +49,7 @@ describe('Page: Students Page', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StudentsPage);
         studentsPage    = fixture.componentInstance;
-        studentServiceMock = fixture.debugElement.injector.get(StudentService);
-
+        studentServiceMock = fixture.debugElement.injector.get(StudentData);
     });
 
     afterEach(() => {
