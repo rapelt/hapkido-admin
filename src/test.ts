@@ -60,7 +60,7 @@ __karma__.start();
  */
 export class TestUtils {
 
-  public static beforeEachCompiler(components: Array): Promise<{fixture: any, instance: any}> {
+  public static beforeEachCompiler(components): Promise<{fixture: any, instance: any}> {
     return TestUtils.configureIonicTestingModule(components)
       .compileComponents().then(() => {
         let fixture: any = TestBed.createComponent(components[0]);
@@ -71,7 +71,7 @@ export class TestUtils {
       });
   }
 
-  public static configureIonicTestingModule(components: Array): typeof TestBed {
+  public static configureIonicTestingModule(components): typeof TestBed {
 
     return TestBed.configureTestingModule({
       declarations: [
