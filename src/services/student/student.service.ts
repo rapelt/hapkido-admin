@@ -31,7 +31,7 @@ export class StudentService {
     //this.recipes[index] = recipe;
   }
 
-  deleteSetudent(hbid: string){
+  deleteStudent(hbid: string){
     this.studentData.deleteStudent(hbid).subscribe(response => {
       this.getAllStudents();
     }, error => {

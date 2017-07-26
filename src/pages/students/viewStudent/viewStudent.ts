@@ -65,7 +65,7 @@ export class ViewStudentPage implements OnInit{
           text: 'Delete',
           role: 'delete',
           handler: () => {
-            this.studentService.deleteSetudent(this.student.hbId);
+            this.studentService.deleteStudent(this.student.hbId);
             this.navCtrl.pop();
           }
         }

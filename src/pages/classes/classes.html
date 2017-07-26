@@ -11,10 +11,28 @@
     </button>
 
     <ion-title>Classes</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only [navPush]="addClassesPage">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <calendar (change)="onPeriodChange($event)" [minDate]="'06/07/2017'"></calendar>
+  <ion-item-group>
+    <ion-item-divider color="light">Next Class</ion-item-divider>
+    <button ion-item *ngIf="nextClass">
+      <span>{{nextClass?.date.calendar()}}</span>
+      <span item-end>{{nextClass?.classType}}</span>
+    </button>    <ion-item-divider color="light">Future Classes</ion-item-divider>
+    <ion-list>
+      <button ion-item *ngFor="let class of futureClasses | sortdates">
+        <span>{{class.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY'})}}</span>
+        <span item-end>{{class.classType}}</span>
+      </button>
+    </ion-list>
+  </ion-item-group>
 </ion-content>

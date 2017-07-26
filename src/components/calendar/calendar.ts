@@ -20,6 +20,7 @@ import { Observable } from 'rxjs/Observable';
 import { Form, IonicFormInput } from 'ionic-angular';
 
 import * as moment from 'moment';
+import {Moment} from "moment";
 
 const momentConstructor: (value?: any) => moment.Moment = (<any>moment).default || moment;
 
@@ -199,6 +200,16 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
   }
 
   // Start My Code
+  _preselectedValues: Array<Moment>;
+
+  @Input()
+  set preselectedValues(preselectedValues: Array<Moment>) {
+    this._preselectedValues = preselectedValues ? preselectedValues : [];
+  }
+
+  get preselectedValues(): Array<Moment> {
+    return this._preselectedValues;
+  }
 
   selectedValues: Array<Date> = [];
 
@@ -216,6 +227,18 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
     let selectedIndex:number = null;
     this.selectedValues.forEach((item, index) => {
       if(item === date){
+        selectedIndex = index;
+      }
+    });
+    return selectedIndex;
+  }
+
+  isInPreselecteValues(date){
+    let selectedIndex:number = null;
+    this.preselectedValues.forEach((item, index) => {
+      console.log("moment", moment(item).isSame(moment(date)));
+      let md = moment(date);
+      if(moment(item).isSame(md, 'day')){
         selectedIndex = index;
       }
     });
@@ -319,8 +342,6 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
     this.shouldAddOrRemoveDate(entry.date);
 
     let newPeriod: IonCalendarPeriod;
-    console.log("Is selected 1", this._isEntrySelected(entry));
-
 
     if (this._isEntrySelected(entry) === 'full') {
       //newPeriod = null;
@@ -360,8 +381,6 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
     }
 
     this.value = newPeriod;
-    console.log("Is selected 2", this._isEntrySelected(entry));
-
   }
 
   registerOnChange(fn: (value: any) => void) {
@@ -527,8 +546,14 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
 
     const index = this.isInSelectedValues(entry.date);
 
+    const isInPreselectedValues = this.isInPreselecteValues(entry.date);
+
     if(index != null){
       return 'full';
+    }
+
+    if(isInPreselectedValues != null){
+      return 'partial';
     }
 
     return 'none';

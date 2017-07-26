@@ -1,31 +1,32 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
-
-/**
- * Generated class for the ClassesPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import {AddClassesPage} from "./addClasses/addClasses";
+import {Class} from "../../models/class";
+import {ClassService} from "../../services/class/class.service";
 
 @Component({
   selector: 'page-classes',
   templateUrl: 'classes.html',
 })
-export class ClassesPage {
-  formGroup: FormGroup;
+export class ClassesPage{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  addClassesPage: any = AddClassesPage;
+
+  allClasses: Array<Class> = [];
+
+  futureClasses: Array<Class> = [];
+
+  nextClass: Class;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private classService: ClassService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClassesPage');
-  }
+  ionViewWillEnter(){
+    this.futureClasses = this.classService.getFutureClasses();
+    this.nextClass = this.classService.getNextClass();
 
-  onPeriodChange(event){
-    console.log(event);
   }
 
 }

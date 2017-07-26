@@ -1,0 +1,66 @@
+<!--
+  Generated template for the ClassesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Add Classes</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item no-lines>
+    <calendar (change)="onPeriodChange($event)" [preselectedValues]="preselectedDates" [minDate]="'06/07/2017'"></calendar>
+  </ion-item>
+
+  <h4>Classes</h4>
+
+  <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <div formArrayName="classes">
+        <div *ngFor="let class of classForm.controls.classes.controls; let i=index">
+          <!-- address header, show remove button when more than one address available -->
+          <div>
+            <ion-list-header>
+              Class {{i + 1}}
+              <button item-end ion-button icon-only (click)="removeAddress(i)" clear>
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ion-list-header>
+          </div>
+
+          <ion-list [formGroupName]="i">
+            <ion-item>
+              <ion-label>Class Type</ion-label>
+              <ion-select formControlName="classType">
+                <ion-option *ngFor="let classType of classTypes" [value]="classType">
+                  {{classType}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Start Time</ion-label>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="startTime"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>Is it a grading?</ion-label>
+              <ion-checkbox item-end formControlName="isGrading"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </ion-list>
+
+    <button type="button" ion-button block (click)="addClass()">Add Another Class</button>
+
+
+    <button type="submit" ion-button block [disabled]="!classForm.valid">Add Classes</button>
+  </form>
+</ion-content>
