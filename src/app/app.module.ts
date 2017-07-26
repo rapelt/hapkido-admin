@@ -15,6 +15,10 @@ import {ViewStudentPage} from "../pages/students/viewStudent/viewStudent";
 import {GradeService} from "../services/grade.service";
 import {StudentEvents} from "../services/student/student.events";
 import {StudentService} from "../services/student/student.service";
+import {ClassesPage} from "../pages/classes/classes";
+import {IonCalendar} from "../components/calendar/calendar";
+import { SampleComponent } from '../components/sample/sample';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,10 @@ import {StudentService} from "../services/student/student.service";
     HomePage,
     StudentsPage,
     EditStudentPage,
-    ViewStudentPage
+    ViewStudentPage,
+    ClassesPage,
+    IonCalendar,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,8 @@ import {StudentService} from "../services/student/student.service";
     HomePage,
     StudentsPage,
     EditStudentPage,
-    ViewStudentPage
+    ViewStudentPage,
+    ClassesPage
   ],
   providers: [
     StatusBar,

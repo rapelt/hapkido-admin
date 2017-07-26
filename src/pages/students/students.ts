@@ -9,7 +9,7 @@ import {StudentEvents} from "../../services/student/student.events";
   selector: 'page-students',
   templateUrl: 'students.html',
 })
-export class StudentsPage implements OnInit, OnDestroy{
+export class StudentsPage implements OnInit{
   students: any;
 
   editStudentPage: any = EditStudentPage;
@@ -21,6 +21,8 @@ export class StudentsPage implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    console.log("Init");
+
     this.studentService.getAllStudents();
 
     this.studentEvent.studentsUpdated.subscribe(students => {
@@ -31,9 +33,4 @@ export class StudentsPage implements OnInit, OnDestroy{
   ionViewWillEnter(){
     console.log("enter");
   }
-
-  ngOnDestroy() {
-    this.studentEvent.studentsUpdated.unsubscribe();
-  }
-
 }

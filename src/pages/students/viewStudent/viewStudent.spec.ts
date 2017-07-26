@@ -1,6 +1,9 @@
 import {TestBed, ComponentFixture, async} from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import {ActionSheetController, AlertController, Events, IonicModule, NavController, NavParams, ActionSheet} from 'ionic-angular';
+import {
+    ActionSheetController, IonicModule, NavController, NavParams, ActionSheet, Alert,
+    AlertController
+} from 'ionic-angular';
 import { MyApp } from '../../../app/app.component';
 import {NavParamsMock} from "../../../testHelperMethods/NavParamsMock";
 import {StudentData} from "../../../services/student/student.data";
@@ -12,31 +15,23 @@ import {ViewStudentPage} from "./viewStudent";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {StudentEvents} from "../../../services/student/student.events";
-import {By} from "@angular/platform-browser";
-import {EventsMock, AlertControllerMock, ActionSheetControllerMock, NavControllerMock, ActionSheetMock} from "ionic-mocks/src";
+import {ActionSheetControllerMock, ActionSheetMock, AlertControllerMock, AlertMock} from "ionic-mocks/src";
 
 let viewStudentPage: ViewStudentPage;
 let fixture: ComponentFixture<ViewStudentPage>;
 let de: DebugElement;
 let el: HTMLElement;
-let events: Events;
-let alertCtrl: AlertController;
-
 
 describe('Page: View Student Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
     const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
-    let events: Events;
-    let actionSheetController: ActionSheetController;
-    let navController: NavController;
     let actionSheetMock: ActionSheet;
-
+    let alertMock: Alert;
 
     beforeEach(async(() => {
-        events = EventsMock.instance();
-        navController = NavControllerMock.instance();
         actionSheetMock = ActionSheetMock.instance();
+        alertMock = AlertMock.instance();
 
         TestBed.configureTestingModule({
             declarations: [MyApp, ViewStudentPage],
@@ -45,12 +40,12 @@ describe('Page: View Student Page', () => {
                 {provide: NavParams, useClass: NavParamsMock},
                 {provide: StudentData, useClass: StudentDataMock},
                 {provide: ActionSheetController, useClass: ActionSheetControllerMock},
+                {provide: AlertController, useClass: AlertControllerMock},
                 Http,
                 ConnectionBackend,
                 GradeService,
                 StudentService,
                 StudentEvents,
-
             ],
             imports: [
                 IonicModule.forRoot(MyApp),
@@ -63,6 +58,8 @@ describe('Page: View Student Page', () => {
         fixture = TestBed.createComponent(ViewStudentPage);
         de = fixture.debugElement.componentInstance;
         viewStudentPage    = fixture.componentInstance;
+        NavParamsMock.setParams("student", rebekah);
+        viewStudentPage.ngOnInit();
     });
 
     afterEach(() => {
@@ -79,12 +76,10 @@ describe('Page: View Student Page', () => {
     });
 
     it('is initialised with a Student when a Student is set', () => {
-        NavParamsMock.setParams("student", rebekah);
-        viewStudentPage.ngOnInit();
         expect(viewStudentPage.student).toEqual(rebekah);
     });
 
-    it('should call alert create', () => {
+    it('should call actionSheet create', () => {
         viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
         viewStudentPage.presentActionSheet();
         expect(viewStudentPage.actionSheetCtrl.create).toHaveBeenCalled();
@@ -94,6 +89,18 @@ describe('Page: View Student Page', () => {
         viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
         viewStudentPage.presentActionSheet();
         expect(actionSheetMock.present).toHaveBeenCalled();
+    });
+
+    it('should call actionSheet create', () => {
+        viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+        viewStudentPage.presentConfirm();
+        expect(viewStudentPage.alertCtrl.create).toHaveBeenCalled();
+    });
+
+    it('should call present on actionSheet', () => {
+        viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+        viewStudentPage.presentConfirm();
+        expect(alertMock.present).toHaveBeenCalled();
     });
 
 });

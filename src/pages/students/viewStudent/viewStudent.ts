@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActionSheetController, NavController, NavParams} from 'ionic-angular';
+import {ActionSheetController, AlertController, NavController, NavParams} from 'ionic-angular';
 import {Student} from "../../../models/student";
 import {EditStudentPage} from "../editStudent/editStudent";
 import {GradeService} from "../../../services/grade.service";
@@ -15,6 +15,7 @@ export class ViewStudentPage implements OnInit{
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
+              public alertCtrl: AlertController,
               public gradeService: GradeService,
               public studentService: StudentService) {
   }
@@ -24,7 +25,6 @@ export class ViewStudentPage implements OnInit{
   }
 
   presentActionSheet() {
-    console.log(this.actionSheetCtrl);
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Student Details Menu',
       buttons: [
@@ -32,25 +32,45 @@ export class ViewStudentPage implements OnInit{
           text: 'Delete',
           role: "destructive",
           handler: () => {
-            console.log('Destructive clicked');
-            this.studentService.deleteSetudent(this.student.hbId);
-            this.navCtrl.pop();
+            this.presentConfirm();
           }
         },{
           text: 'Edit',
           handler: () => {
             this.navCtrl.push(EditStudentPage, {mode: 'Edit', student: this.student});
-
           }
         },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {}
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: `Do you want to delete ${this.student.name.firstname} ${this.student.name.lastname}`,
+      buttons: [
+        {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
+        },
+        {
+          text: 'Delete',
+          role: 'delete',
+          handler: () => {
+            this.studentService.deleteSetudent(this.student.hbId);
+            this.navCtrl.pop();
+          }
         }
       ]
     });
-    actionSheet.present();
+    alert.present();
   }
 }

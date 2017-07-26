@@ -23,12 +23,10 @@ export class EditStudentPage implements OnInit{
               public navParams: NavParams,
               public toastCtrl: ToastController,
               public studentService: StudentService,
-              public gradeService: GradeService) {
-  }
+              public gradeService: GradeService) {}
 
   ngOnInit(){
     this.grades = this.gradeService.getAllGrades();
-
     this.mode = this.navParams.get("mode");
 
     if(this.mode === 'New'){

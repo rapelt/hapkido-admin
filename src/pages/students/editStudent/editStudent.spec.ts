@@ -6,8 +6,6 @@ import {EditStudentPage} from "./editStudent";
 import {NavParamsMock} from "../../../testHelperMethods/NavParamsMock";
 import {StudentData} from "../../../services/student/student.data";
 import {ConnectionBackend, Http, HttpModule} from "@angular/http";
-import {Student} from "../../../models/student";
-import {Name} from "../../../models/name";
 import {StudentDataMock} from "../../../services/student/student.data.mock";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
@@ -19,9 +17,6 @@ let de: DebugElement;
 let el: HTMLElement;
 
 describe('Page: Edit Student Page', () => {
-
-    const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
