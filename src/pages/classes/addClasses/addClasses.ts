@@ -73,25 +73,11 @@ export class AddClassesPage implements OnInit{
         let date: Moment = moment(ncdate);
         date.set({hour: time[0], minute: time[1]});
         let startTime: string = nc['startTime'].value;
-        newClasses.push(new Class(classType, attendance, isGrading, date, startTime));
+        newClasses.push(new Class('0', classType, attendance, isGrading, date, startTime));
       });
     });
-    console.log(newClasses);
     this.classService.createClasses(newClasses);
     this.navCtrl.pop();
   }
 
 }
-
-
-/*let classesTypes = [];
-
-classesTypes.push(new FormGroup({
-  'classType': new FormControl(null, Validators.required),
-  'startTime': new FormControl(null, Validators.required),
-  'isGrading': new FormControl(false)
-}));
-
-this.classForm = new FormGroup({
-  'classes' : new FormArray(classesTypes)
-});*/

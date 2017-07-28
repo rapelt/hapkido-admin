@@ -25,7 +25,7 @@
   <ion-item-group>
     <ion-item-divider color="light">Next Class</ion-item-divider>
     <button ion-item *ngIf="nextClass">
-      <span>{{nextClass?.date.calendar()}}</span>
+      <span>{{nextClass?.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY'})}}</span>
       <span item-end>{{nextClass?.classType}}</span>
     </button>    <ion-item-divider color="light">Future Classes</ion-item-divider>
     <ion-list>

@@ -3,22 +3,39 @@ import {Injectable} from "@angular/core";
 import {Class} from "../../models/class";
 import {Moment} from "moment";
 import * as moment from 'moment';
+import {ClassData} from "./class.data";
+import {ClassEvents} from "./class.events";
 
 @Injectable()
 export class ClassService {
   private classes: Class[] = [];
 
-  constructor() {}
+  constructor(private classData: ClassData, private classEvents: ClassEvents) {}
 
   createClass(){
   }
 
   createClasses(newClasses: Array<Class>){
-    this.classes.push(...newClasses);
+    this.classData.createClasses(newClasses).subscribe(response => {
+      console.log(response);
+      this.getAllClasses();
+    }, error => {
+      console.log(error);
+    });;
+    //this.classes.push(...newClasses);
   }
 
   getAllClasses(){
-    return this.classes;
+    this.classData.getAllClasses().subscribe((classList: Class []) => {
+      classList.forEach((aclass)=>{
+        aclass.date = moment(aclass.date);
+      });
+      this.classes = classList;
+      this.classEvents.classesUpdated.next(this.classes);
+      console.log("Classes Updated", this.classes);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   getClass(){

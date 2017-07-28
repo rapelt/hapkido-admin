@@ -21,6 +21,8 @@ import { SampleComponent } from '../components/sample/sample';
 import {AddClassesPage} from "../pages/classes/addClasses/addClasses";
 import {ClassService} from "../services/class/class.service";
 import { SortDatesPipe } from '../pipes/sort-dates/sort-dates';
+import {ClassData} from "../services/class/class.data";
+import {ClassEvents} from "../services/class/class.events";
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { SortDatesPipe } from '../pipes/sort-dates/sort-dates';
     StudentEvents,
     StudentService,
     GradeService,
-    ClassService
+    ClassService,
+    ClassData,
+    ClassEvents
   ]
 })
 export class AppModule {}

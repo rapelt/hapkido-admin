@@ -236,7 +236,6 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
   isInPreselecteValues(date){
     let selectedIndex:number = null;
     this.preselectedValues.forEach((item, index) => {
-      console.log("moment", moment(item).isSame(moment(date)));
       let md = moment(date);
       if(moment(item).isSame(md, 'day')){
         selectedIndex = index;

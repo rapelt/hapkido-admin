@@ -5,12 +5,13 @@ import * as moment from 'moment';
 import {AddClassesPage} from "./addClasses/addClasses";
 import {Class} from "../../models/class";
 import {ClassService} from "../../services/class/class.service";
+import {ClassEvents} from "../../services/class/class.events";
 
 @Component({
   selector: 'page-classes',
   templateUrl: 'classes.html',
 })
-export class ClassesPage{
+export class ClassesPage implements OnInit{
 
   addClassesPage: any = AddClassesPage;
 
@@ -20,13 +21,16 @@ export class ClassesPage{
 
   nextClass: Class;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private classService: ClassService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private classService: ClassService, private classEvents: ClassEvents) {
   }
 
-  ionViewWillEnter(){
-    this.futureClasses = this.classService.getFutureClasses();
-    this.nextClass = this.classService.getNextClass();
+  ngOnInit(){
+    this.classService.getAllClasses();
 
+    this.classEvents.classesUpdated.subscribe( classes => {
+      this.futureClasses = this.classService.getFutureClasses();
+      this.nextClass = this.classService.getNextClass();
+    });
   }
 
 }

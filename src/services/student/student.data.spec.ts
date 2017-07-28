@@ -10,7 +10,7 @@ import {StudentData} from "./student.data";
 import {Name} from "../../models/name";
 import {Student} from "../../models/student";
 
-describe('Student Service', () => {
+describe('Student Data', () => {
 
     beforeEach(() => {
 
