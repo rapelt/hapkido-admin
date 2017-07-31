@@ -21,17 +21,14 @@ export class ClassData {
   }
 
   createClasses(classes: Array<Class>): Observable<Array<Class>> {
-    console.log("Create Class");
     return this.http.post(this.userUrl + "create", {classes: classes}, this.getHeaders()).map((response: Response) => response.json());
   }
 
   updateClass(aclass: Class): Observable<Class> {
-    console.log("Update Class");
     return this.http.post(this.userUrl + "update/" + aclass.classid, aclass, this.getHeaders()).map((response: Response) => response.json());
   }
 
   deleteClass(classid: string): Observable<Class> {
-    console.log("Delete Class");
     return this.http.post(this.userUrl + "delete/" + classid, null, this.getHeaders()).map((response: Response) => response.json());
   }
 

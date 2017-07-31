@@ -21,12 +21,10 @@ export class ClassService {
 
   createClasses(newClasses: Array<Class>){
     this.classData.createClasses(newClasses).subscribe(response => {
-      console.log(response);
       this.getAllClasses();
     }, error => {
       console.log(error);
     });;
-    //this.classes.push(...newClasses);
   }
 
   getAllClasses(){
@@ -36,7 +34,6 @@ export class ClassService {
       });
       this.setClasses(classList);
       this.classEvents.classesUpdated.next(this.classes);
-      console.log("Classes Updated", this.classes);
     }, (error) => {
       console.log(error);
     });
@@ -51,28 +48,27 @@ export class ClassService {
   updateClass() {
   }
 
-  getNextClass(){
-    console.log(this.classes);
-    let futureClasses = this.getFutureClasses();
-    console.log(futureClasses);
-
-    futureClasses.sort((a, b) => {
-        if (moment(a.date).isBefore(b.date)) {
-          return -1;
-        } else if (moment(a.date).isAfter(b.date)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-
-    return futureClasses[0];
+  sortClasses(classes: Array<Class>) {
+    return classes.sort((a, b) => {
+      if (moment(a.date).isBefore(b.date)) {
+        return -1;
+      } else if (moment(a.date).isAfter(b.date)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 
-  getFutureClasses(){
+  getNextClass(classes: Array<Class>){
+    let futureClasses = this.getFutureClasses(classes);
+    return this.sortClasses(futureClasses)[0];
+  }
+
+  getFutureClasses(classes: Array<Class>){
     let futureClasses: Array<Class> = [];
 
-    this.classes.forEach((aclass) => {
+    classes.forEach((aclass) => {
       if(moment(aclass.date).isAfter(moment.now())){
         futureClasses.push(aclass);
       }
@@ -80,9 +76,9 @@ export class ClassService {
     return futureClasses;
   }
 
-  getAllDates(): Array<Moment>{
+  getAllDates(classes): Array<Moment>{
     let dates: Array<Moment> = [];
-    this.classes.forEach((aclass)=>{
+    classes.forEach((aclass)=>{
         dates.push(aclass.date);
     });
     return dates;

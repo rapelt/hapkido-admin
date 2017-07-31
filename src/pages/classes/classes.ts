@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import * as moment from 'moment';
 import {AddClassesPage} from "./addClasses/addClasses";
 import {Class} from "../../models/class";
 import {ClassService} from "../../services/class/class.service";
@@ -15,7 +13,7 @@ export class ClassesPage implements OnInit{
 
   addClassesPage: any = AddClassesPage;
 
-  allClasses: Array<Class> = [];
+  allClasses: any = [];
 
   futureClasses: Array<Class> = [];
 
@@ -27,9 +25,10 @@ export class ClassesPage implements OnInit{
   ngOnInit(){
     this.classService.getAllClasses();
 
-    this.classEvents.classesUpdated.subscribe( classes => {
-      this.futureClasses = this.classService.getFutureClasses();
-      this.nextClass = this.classService.getNextClass();
+    this.classEvents.classesUpdated.subscribe( (classes:Array<Class>) => {
+      this.allClasses = classes;
+      this.futureClasses = this.classService.getFutureClasses(classes);
+      this.nextClass = this.classService.getNextClass(classes);
     });
   }
 

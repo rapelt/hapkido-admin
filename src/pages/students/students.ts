@@ -27,8 +27,4 @@ export class StudentsPage implements OnInit{
       this.students = students;
     });
   }
-
-  ionViewWillEnter(){
-    console.log("enter");
-  }
 }

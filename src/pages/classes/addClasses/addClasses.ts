@@ -6,6 +6,7 @@ import {ClassTypes} from "../../../models/classType";
 import {Class} from "../../../models/class";
 import {Moment} from "moment";
 import {ClassService} from "../../../services/class/class.service";
+import {ClassEvents} from "../../../services/class/class.events";
 
 @Component({
   selector: 'page-add-classes',
@@ -18,7 +19,7 @@ export class AddClassesPage implements OnInit{
 
   classTypes = ClassTypes;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _fb: FormBuilder, private classService: ClassService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _fb: FormBuilder, private classService: ClassService, private classEvents: ClassEvents) {
   }
 
   onPeriodChange(event){
@@ -26,7 +27,11 @@ export class AddClassesPage implements OnInit{
   }
 
   ngOnInit() {
-    this.preselectedDates = this.classService.getAllDates();
+    this.classService.getAllClasses();
+
+    this.classEvents.classesUpdated.subscribe((classes:Array<Class>) => {
+      this.preselectedDates = this.classService.getAllDates(classes);
+    });
 
     this.initaliseForm();
   }
@@ -48,12 +53,11 @@ export class AddClassesPage implements OnInit{
   }
 
   addClass() {
-    // add address to the list
     const control = <FormArray>this.classForm.controls['classes'];
     control.push(this.initClass());
   }
 
-  removeAddress(i: number) {
+  removeClass(i: number) {
     const control = <FormArray>this.classForm.controls['classes'];
     control.removeAt(i);
   }
@@ -63,8 +67,6 @@ export class AddClassesPage implements OnInit{
 
     this.selectedDates.forEach((ncdate)=>{
       (<FormArray>this.classForm.controls.classes).controls.forEach((newClass)=>{
-        console.log(ncdate);
-
         let nc = <FormControl>newClass['controls'];
         let classType: string = nc['classType'].value;
         let attendance: Array<string> = [];
@@ -76,7 +78,10 @@ export class AddClassesPage implements OnInit{
         newClasses.push(new Class('0', classType, attendance, isGrading, date, startTime));
       });
     });
-    this.classService.createClasses(newClasses);
+
+    if(newClasses.length > 0){
+      this.classService.createClasses(newClasses);
+    }
     this.navCtrl.pop();
   }
 

@@ -40,28 +40,26 @@ describe('Student Service', () => {
   let classes = [class1, class2, class3, class4, class5];
 
   it('getsNextClass should return', inject([ClassService], (classService: ClassService) => {
-    classService.setClasses(classes);
-
-    expect(classService.getNextClass()).toBe(class2);
+    expect(classService.getNextClass(classes)).toBe(class2);
   }));
 
   it('getFutureClasses should return', inject([ClassService], (classService: ClassService) => {
-    classService.setClasses(classes);
+    const futureClasses = classService.getFutureClasses(classes);
 
-    expect(classService.getFutureClasses().length).toBe(3);
-    expect(classService.getFutureClasses()[0].classid).toBe(class1.classid);
-    expect(classService.getFutureClasses()[1].classid).toBe(class2.classid);
-    expect(classService.getFutureClasses()[2].classid).toBe(class3.classid);
+    expect(futureClasses.length).toBe(3);
+    expect(futureClasses[0].classid).toBe(class1.classid);
+    expect(futureClasses[1].classid).toBe(class2.classid);
+    expect(futureClasses[2].classid).toBe(class3.classid);
   }));
 
   it('getAllDates should return', inject([ClassService], (classService: ClassService) => {
-    classService.setClasses(classes);
+    const allDates = classService.getAllDates(classes);
 
-    expect(classService.getAllDates().length).toBe(5);
-    expect(classService.getAllDates()[0]).toBe(class1.date);
-    expect(classService.getAllDates()[1]).toBe(class2.date);
-    expect(classService.getAllDates()[2]).toBe(class3.date);
-    expect(classService.getAllDates()[3]).toBe(class4.date);
-    expect(classService.getAllDates()[4]).toBe(class5.date);
+    expect(allDates.length).toBe(5);
+    expect(allDates[0]).toBe(class1.date);
+    expect(allDates[1]).toBe(class2.date);
+    expect(allDates[2]).toBe(class3.date);
+    expect(allDates[3]).toBe(class4.date);
+    expect(allDates[4]).toBe(class5.date);
   }));
 });
