@@ -42,7 +42,6 @@ describe('Page: Home Page', () => {
     });
 
     it('initialises with a title of Home', () => {
-        console.log(comp);
         expect(comp['title']).toEqual('Home');
     });
 

@@ -24,7 +24,7 @@ describe('Page: Students Page', () => {
     const name : Name = new Name('Rebekah', 'Apelt');
     const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
 
-    let studentServiceMock: StudentDataMock;
+    let studentDataMock: StudentDataMock;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -49,7 +49,7 @@ describe('Page: Students Page', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StudentsPage);
         studentsPage    = fixture.componentInstance;
-        studentServiceMock = fixture.debugElement.injector.get(StudentData);
+        studentDataMock = fixture.debugElement.injector.get(StudentData);
     });
 
     afterEach(() => {
@@ -65,7 +65,7 @@ describe('Page: Students Page', () => {
     });
 
     it('is initialised with students', fakeAsync(() => {
-        const spy = spyOn(studentServiceMock, 'getAllStudents').and.returnValue(
+        const spy = spyOn(studentDataMock, 'getAllStudents').and.returnValue(
             Observable.of([rebekah])
         );
         studentsPage.ngOnInit();

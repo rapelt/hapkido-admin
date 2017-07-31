@@ -15,6 +15,10 @@ export class ClassService {
   createClass(){
   }
 
+  setClasses(classes) {
+    this.classes = classes;
+  }
+
   createClasses(newClasses: Array<Class>){
     this.classData.createClasses(newClasses).subscribe(response => {
       console.log(response);
@@ -30,7 +34,7 @@ export class ClassService {
       classList.forEach((aclass)=>{
         aclass.date = moment(aclass.date);
       });
-      this.classes = classList;
+      this.setClasses(classList);
       this.classEvents.classesUpdated.next(this.classes);
       console.log("Classes Updated", this.classes);
     }, (error) => {
@@ -48,7 +52,10 @@ export class ClassService {
   }
 
   getNextClass(){
+    console.log(this.classes);
     let futureClasses = this.getFutureClasses();
+    console.log(futureClasses);
+
     futureClasses.sort((a, b) => {
         if (moment(a.date).isBefore(b.date)) {
           return -1;
@@ -80,6 +87,4 @@ export class ClassService {
     });
     return dates;
   }
-
-
 }

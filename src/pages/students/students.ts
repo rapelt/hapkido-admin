@@ -21,8 +21,6 @@ export class StudentsPage implements OnInit{
   }
 
   ngOnInit() {
-    console.log("Init");
-
     this.studentService.getAllStudents();
 
     this.studentEvent.studentsUpdated.subscribe(students => {

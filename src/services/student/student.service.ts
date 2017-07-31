@@ -17,11 +17,14 @@ export class StudentService {
     });
   }
 
+  getStudents(){
+    return this.students;
+  }
+
   getAllStudents(){
     this.studentData.getAllStudents().subscribe((studentsList: Student []) => {
       this.students = studentsList;
       this.studentEvents.studentsUpdated.next(this.students);
-      console.log("Students Updated");
     }, (error) => {
       console.log(error);
     });

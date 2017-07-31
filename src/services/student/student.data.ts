@@ -21,21 +21,14 @@ export class StudentData {
     }
 
     createStudent(student: Student): Observable<Student> {
-        console.log("Create Student");
         return this.http.post(this.userUrl + "create", student, this.getHeaders()).map((response: Response) => response.json());
     }
 
     updateStudent(student: Student): Observable<Student> {
-        console.log("Update Student");
-        console.log(this.userUrl + "update/" + student.hbId);
-
         return this.http.post(this.userUrl + "update/" + student.hbId, student, this.getHeaders()).map((response: Response) => response.json());
     }
 
     deleteStudent(hbid: string): Observable<Student> {
-        console.log("Delete Student");
-        console.log(this.userUrl + "delete/" + hbid);
-
         return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json());
     }
 
