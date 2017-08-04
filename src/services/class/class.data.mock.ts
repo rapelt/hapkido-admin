@@ -25,11 +25,19 @@ export class ClassDataMock {
     return Observable.of(ClassDataMock.classes[0]);
   }
 
-  createClasses(aclass: Class) {
-    return Observable.of(ClassDataMock.classes[0]);
+  createClasses(classes: Array<Class>) {
+    return Observable.of(ClassDataMock.classes);
   }
 
   deleteClass(classid: string) {
+    return Observable.of(ClassDataMock.classes[0]);
+  }
+
+  addStudentToClass(studentId: string, classId: string){
+    return Observable.of(ClassDataMock.classes[0]);
+  }
+
+  removeStudentFromClass(studentId: string, classId: string){
     return Observable.of(ClassDataMock.classes[0]);
   }
 }

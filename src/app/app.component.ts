@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import {StudentsPage} from "../pages/students/students";
 import {ClassesPage} from "../pages/classes/classes";
+import {SelectClassPage} from "../pages/attendance/selectClass";
 
 @Component({
   templateUrl: 'app.html'
@@ -25,8 +26,8 @@ export class MyApp {
       { title: 'Home', component: HomePage, icon: 'home' },
       { title: 'Students', component: StudentsPage, icon: 'people'},
       { title: 'Classes', component: ClassesPage, icon: 'calendar'},
-      /* { title: 'Attendance', component: Home, icon: 'alarm'},
-       { title: 'Gradings', component: GradesPage, icon: 'trending-up'},
+       { title: 'Attendance', component: SelectClassPage, icon: 'alarm'},
+      /*{ title: 'Gradings', component: GradesPage, icon: 'trending-up'},
        { title: 'Techniques', component: Home, icon: 'videocam'},
        { title: 'Documents', component: Home, icon: 'paper'},
        { title: 'Translations', component: Home, icon: 'mic'},

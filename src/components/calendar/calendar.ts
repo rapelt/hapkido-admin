@@ -51,6 +51,7 @@ export class IonCalendarPeriod {
 export class IonCalendarChange {
   source: IonCalendar;
   selectedValues: Array<Date>;
+  selectedValue: Date;
 }
 
 export class IonCalendarEntry {
@@ -105,9 +106,6 @@ export class IonCalendarEntry {
 }
 
 
-
-
-
 @Component({
   selector: 'calendar',
   templateUrl: 'calendar.html',
@@ -121,7 +119,7 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
 
   get viewDate(): Date { return this._viewDate; };
   @Input('view-date')
-  set viewDate(viewDate: Date) { this._setViewDate(viewDate); }
+  set viewDate(viewDate: Date) { this._setViewDate(viewDate); console.log(this._viewDate) }
 
   private _disabled: boolean = false;
   get disabled(): boolean { return this._disabled; }
@@ -194,12 +192,22 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
     this._selectedPeriod = period;
     this._change.emit({
       source: this,
-      selectedValues: this.selectedValues
+      selectedValues: this.selectedValues,
+      selectedValue: this._selectedPeriod.startDate
     });
     this._refreshSelection();
   }
 
   // Start My Code
+
+  _selectionType: string = "";
+
+
+  @Input()
+  set selectionType(type: string) {
+    this._selectionType = type ? type : 'single';
+  }
+
   _preselectedValues: Array<Moment>;
 
   @Input()
@@ -265,6 +273,7 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
 
     return this._selectedPeriod;
   }
+
   set value(period: IonCalendarPeriod | Date) {
     if (this._dateOnlyForDay && this.selectionMode === 'day') {
       if (period instanceof Date &&
@@ -334,52 +343,94 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
   }
 
   selectEntry(entry: IonCalendarEntry): void {
-    if (!this._canSelectEntry(entry)) {
-      return this._nextViewMode(entry);
+    if(this._selectionType === 'single'){
+      if (!this._canSelectEntry(entry)) {
+        return this._nextViewMode(entry);
+      }
+
+      let newPeriod: IonCalendarPeriod | Date;
+      if (this._isEntrySelected(entry) === 'full') {
+        newPeriod = null;
+      } else if (this._selectionMode === 'day') {
+        if (this._dateOnlyForDay) {
+          newPeriod = entry.date;
+        } else {
+          newPeriod = {
+            type: 'day',
+            startDate: entry.date,
+            endDate: entry.date
+          };
+        }
+      } else if (this._selectionMode === 'week') {
+        newPeriod = {
+          type: 'week',
+          startDate: new Date(momentConstructor(entry.date).startOf('week').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('week').toDate().valueOf())
+        };
+      } else if (this._selectionMode === 'month') {
+        newPeriod = {
+          type: 'month',
+          startDate: new Date(momentConstructor(entry.date).startOf('month').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('month').toDate().valueOf())
+        };
+      } else if (this._selectionMode === 'year') {
+        newPeriod = {
+          type: 'year',
+          startDate: new Date(momentConstructor(entry.date).startOf('year').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('year').toDate().valueOf())
+        };
+      }
+      this.value = newPeriod;
     }
 
-    this.shouldAddOrRemoveDate(entry.date);
 
-    let newPeriod: IonCalendarPeriod;
+    if(this._selectionType === 'multiple'){
+      if (!this._canSelectEntry(entry)) {
+        return this._nextViewMode(entry);
+      }
 
-    if (this._isEntrySelected(entry) === 'full') {
-      //newPeriod = null;
-      newPeriod = {
-        type: 'day',
-        startDate: entry.date,
-        endDate: entry.date
-      };
-    } else if (this._selectionMode === 'day') {
-      if (this._dateOnlyForDay) {
-        //newPeriod = entry.date;
-      } else {
+      this.shouldAddOrRemoveDate(entry.date);
+
+      let newPeriod: IonCalendarPeriod;
+
+      if (this._isEntrySelected(entry) === 'full') {
         newPeriod = {
           type: 'day',
           startDate: entry.date,
           endDate: entry.date
         };
+      } else if (this._selectionMode === 'day') {
+        if (this._dateOnlyForDay) {
+          //newPeriod = entry.date;
+        } else {
+          newPeriod = {
+            type: 'day',
+            startDate: entry.date,
+            endDate: entry.date
+          };
+        }
+      } else if (this._selectionMode === 'week') {
+        newPeriod = {
+          type: 'week',
+          startDate: new Date(momentConstructor(entry.date).startOf('week').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('week').toDate().valueOf())
+        };
+      } else if (this._selectionMode === 'month') {
+        newPeriod = {
+          type: 'month',
+          startDate: new Date(momentConstructor(entry.date).startOf('month').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('month').toDate().valueOf())
+        };
+      } else if (this._selectionMode === 'year') {
+        newPeriod = {
+          type: 'year',
+          startDate: new Date(momentConstructor(entry.date).startOf('year').toDate().valueOf()),
+          endDate: new Date(momentConstructor(entry.date).endOf('year').toDate().valueOf())
+        };
       }
-    } else if (this._selectionMode === 'week') {
-      newPeriod = {
-        type: 'week',
-        startDate: new Date(momentConstructor(entry.date).startOf('week').toDate().valueOf()),
-        endDate: new Date(momentConstructor(entry.date).endOf('week').toDate().valueOf())
-      };
-    } else if (this._selectionMode === 'month') {
-      newPeriod = {
-        type: 'month',
-        startDate: new Date(momentConstructor(entry.date).startOf('month').toDate().valueOf()),
-        endDate: new Date(momentConstructor(entry.date).endOf('month').toDate().valueOf())
-      };
-    } else if (this._selectionMode === 'year') {
-      newPeriod = {
-        type: 'year',
-        startDate: new Date(momentConstructor(entry.date).startOf('year').toDate().valueOf()),
-        endDate: new Date(momentConstructor(entry.date).endOf('year').toDate().valueOf())
-      };
-    }
 
-    this.value = newPeriod;
+      this.value = newPeriod;
+    }
   }
 
   registerOnChange(fn: (value: any) => void) {
@@ -543,43 +594,48 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
 
   private _isEntrySelected(entry: IonCalendarEntry): IonCalendarEntrySelectedState {
 
-    const index = this.isInSelectedValues(entry.date);
+
+    if(this._selectionType === 'multiple'){
+      const index = this.isInSelectedValues(entry.date);
+
+      if(index != null){
+        return 'full';
+      }
+    }
+
+    if(this._selectionType === 'single'){
+      if (this._selectedPeriod != null && this._selectedPeriod.type != null &&
+        this._selectedPeriod.startDate != null && this._selectedPeriod.endDate != null) {
+        let selectionStart: moment.Moment = momentConstructor(this._selectedPeriod.startDate)
+          .startOf('day');
+        let selectionEnd: moment.Moment = momentConstructor(this._selectedPeriod.endDate)
+          .endOf('day');
+        let selectionPeriodOrder: number = this._periodOrder(this._selectedPeriod.type);
+
+        let entryPeriodOrder: number = this._periodOrder(entry.type);
+        let entryRange: {start: moment.Moment, end: moment.Moment} = entry.getRange();
+
+        if (entryPeriodOrder <= selectionPeriodOrder &&
+          entryRange.start.isBetween(selectionStart, selectionEnd, null, '[]') &&
+          entryRange.end.isBetween(selectionStart, selectionEnd, null, '[]')
+        ) {
+          return 'full';
+        } else if (entryPeriodOrder > selectionPeriodOrder &&
+          selectionStart.isBetween(entryRange.start, entryRange.end, null, '[]') &&
+          selectionEnd.isBetween(entryRange.start, entryRange.end, null, '[]')
+        ) {
+          return 'partial';
+        }
+      }
+    }
 
     const isInPreselectedValues = this.isInPreselecteValues(entry.date);
-
-    if(index != null){
-      return 'full';
-    }
 
     if(isInPreselectedValues != null){
       return 'partial';
     }
 
     return 'none';
-    /*if (this._selectedPeriod != null && this._selectedPeriod.type != null &&
-      this._selectedPeriod.startDate != null && this._selectedPeriod.endDate != null) {
-      let selectionStart: moment.Moment = momentConstructor(this._selectedPeriod.startDate)
-        .startOf('day');
-      let selectionEnd: moment.Moment = momentConstructor(this._selectedPeriod.endDate)
-        .endOf('day');
-      let selectionPeriodOrder: number = this._periodOrder(this._selectedPeriod.type);
-
-      let entryPeriodOrder: number = this._periodOrder(entry.type);
-      let entryRange: {start: moment.Moment, end: moment.Moment} = entry.getRange();
-
-      if (entryPeriodOrder <= selectionPeriodOrder &&
-        entryRange.start.isBetween(selectionStart, selectionEnd, null, '[]') &&
-        entryRange.end.isBetween(selectionStart, selectionEnd, null, '[]')
-      ) {
-        return 'full';
-      } else if (entryPeriodOrder > selectionPeriodOrder &&
-        selectionStart.isBetween(entryRange.start, entryRange.end, null, '[]') &&
-        selectionEnd.isBetween(entryRange.start, entryRange.end, null, '[]')
-      ) {
-        return 'partial';
-      }
-    }*/
-
   }
 
   private _refreshSelection(): void {

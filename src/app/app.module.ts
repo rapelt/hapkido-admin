@@ -23,6 +23,9 @@ import {ClassService} from "../services/class/class.service";
 import { SortDatesPipe } from '../pipes/sort-dates/sort-dates';
 import {ClassData} from "../services/class/class.data";
 import {ClassEvents} from "../services/class/class.events";
+import {SelectClassPage} from "../pages/attendance/selectClass";
+import {ClassAttendancePage} from "../pages/attendance/class-attendance/class-attendance";
+import {AttendanceService} from "../services/attendance.service";
 
 
 @NgModule({
@@ -36,7 +39,9 @@ import {ClassEvents} from "../services/class/class.events";
     IonCalendar,
     SampleComponent,
     AddClassesPage,
-    SortDatesPipe
+    SortDatesPipe,
+    SelectClassPage,
+    ClassAttendancePage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,9 @@ import {ClassEvents} from "../services/class/class.events";
     EditStudentPage,
     ViewStudentPage,
     ClassesPage,
-    AddClassesPage
+    AddClassesPage,
+    SelectClassPage,
+    ClassAttendancePage
   ],
   providers: [
     StatusBar,
@@ -63,7 +70,8 @@ import {ClassEvents} from "../services/class/class.events";
     GradeService,
     ClassService,
     ClassData,
-    ClassEvents
+    ClassEvents,
+    AttendanceService
   ]
 })
 export class AppModule {}

@@ -25,4 +25,12 @@ export class StudentDataMock {
     deleteStudent(hbId: string) {
         return Observable.of(StudentDataMock.students[0]);
     }
+
+    addClass(hbid: string, classId: string){
+        return Observable.of(StudentDataMock.students[0]);
+    }
+
+    removeClass(hbid: string, classId: string){
+        return Observable.of(StudentDataMock.students[0]);
+    }
 }

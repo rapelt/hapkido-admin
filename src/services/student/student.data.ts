@@ -7,7 +7,9 @@ import {Student} from "../../models/student";
 @Injectable()
 export class StudentData {
 
+    //userUrl: string = 'http://localhost:8080/student/';
     userUrl: string = 'https://tfub8jwq4h.execute-api.ap-southeast-2.amazonaws.com/dev/student/';
+
 
     constructor(public http: Http) {
     }
@@ -30,6 +32,16 @@ export class StudentData {
 
     deleteStudent(hbid: string): Observable<Student> {
         return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json());
+    }
+
+    addClass(hbid: string, classId: string): Observable<Student> {
+        console.log(classId);
+        return this.http.post(this.userUrl + "addtoclass/" + hbid, {classId: classId}, this.getHeaders()).map((response: Response) => response.json());
+    }
+
+    removeClass(hbid: string, classId: string): Observable<Student> {
+        console.log(classId);
+        return this.http.post(this.userUrl + "removefromclass/" + hbid, {classId: classId}, this.getHeaders()).map((response: Response) => response.json());
     }
 
     getHeaders() {

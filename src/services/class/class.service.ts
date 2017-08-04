@@ -24,7 +24,7 @@ export class ClassService {
       this.getAllClasses();
     }, error => {
       console.log(error);
-    });;
+    });
   }
 
   getAllClasses(){
@@ -42,7 +42,12 @@ export class ClassService {
   getClass(){
   }
 
-  deleteClass(){
+  deleteClass(classId: string){
+    this.classData.deleteClass(classId).subscribe(response => {
+      this.getAllClasses();
+    }, error => {
+      console.log(error);
+    });
   }
 
   updateClass() {
@@ -82,5 +87,35 @@ export class ClassService {
         dates.push(aclass.date);
     });
     return dates;
+  }
+
+  getClassesOnDay(selectedValue: Date, classes: Array<Class>) {
+    let day = moment(selectedValue);
+    let classesOnADay: Array<Class> = [];
+
+    classes.forEach((aclass) => {
+      if(moment(day).isSame(aclass.date, 'day')){
+        classesOnADay.push(aclass);
+      }
+    });
+    return classesOnADay;
+  }
+
+  addStudent(studentId: string, classId: string){
+    this.classData.addStudentToClass(studentId, classId).subscribe(response => {
+      this.getAllClasses();
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  removeStudent(studentId: string, classId: string) {
+    this.classData.removeStudentFromClass(studentId, classId).subscribe(response => {
+      this.getAllClasses();
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
   }
 }

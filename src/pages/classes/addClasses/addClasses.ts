@@ -16,6 +16,7 @@ export class AddClassesPage implements OnInit{
   classForm: FormGroup;
   selectedDates: Array<Date> = [];
   preselectedDates: Array<Moment> = [];
+  classes: Array<Class> = [];
 
   classTypes = ClassTypes;
 
@@ -27,12 +28,8 @@ export class AddClassesPage implements OnInit{
   }
 
   ngOnInit() {
-    this.classService.getAllClasses();
-
-    this.classEvents.classesUpdated.subscribe((classes:Array<Class>) => {
-      this.preselectedDates = this.classService.getAllDates(classes);
-    });
-
+    this.classes = this.navParams.get('allClasses');
+    this.preselectedDates = this.classService.getAllDates(this.classes);
     this.initaliseForm();
   }
 
@@ -46,7 +43,7 @@ export class AddClassesPage implements OnInit{
 
   initClass() {
     return this._fb.group({
-      classType: ['', Validators.required],
+      classType: ['Adults', Validators.required],
       startTime: ['', Validators.required],
       isGrading: ['false']
     });

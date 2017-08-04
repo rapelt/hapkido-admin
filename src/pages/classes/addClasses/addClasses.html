@@ -17,7 +17,7 @@
 
 <ion-content padding>
   <ion-item no-lines>
-    <calendar (change)="onPeriodChange($event)" [preselectedValues]="preselectedDates" [minDate]="'06/07/2017'"></calendar>
+    <calendar (change)="onPeriodChange($event)" [preselectedValues]="preselectedDates" [minDate]="'06/07/2017'" [selectionType]="'multiple'"></calendar>
   </ion-item>
 
   <h4>Classes</h4>
@@ -26,34 +26,32 @@
     <ion-list>
       <div formArrayName="classes">
         <div *ngFor="let class of classForm.controls.classes.controls; let i=index">
-          <!-- address header, show remove button when more than one address available -->
-          <div>
-            <ion-list-header>
-              Class {{i + 1}}
+          <ion-card>
+            <ion-item>
+              <b>Class {{i + 1}}</b>
               <button item-end ion-button icon-only (click)="removeClass(i)" clear>
-                <ion-icon name="close"></ion-icon>
+                <ion-icon color="danger" name="trash"></ion-icon>
               </button>
-            </ion-list-header>
-          </div>
-
-          <ion-list [formGroupName]="i">
-            <ion-item>
-              <ion-label>Class Type</ion-label>
-              <ion-select formControlName="classType">
-                <ion-option *ngFor="let classType of classTypes" [value]="classType">
-                  {{classType}}
-                </ion-option>
-              </ion-select>
             </ion-item>
-            <ion-item>
-              <ion-label>Start Time</ion-label>
-              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="startTime"></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label>Is it a grading?</ion-label>
-              <ion-checkbox item-end formControlName="isGrading"></ion-checkbox>
-            </ion-item>
-          </ion-list>
+            <ion-list [formGroupName]="i">
+              <ion-item>
+                <ion-label>Class Type</ion-label>
+                <ion-select formControlName="classType">
+                  <ion-option *ngFor="let classType of classTypes" [value]="classType">
+                    {{classType}}
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Start Time</ion-label>
+                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="startTime"></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Is it a grading?</ion-label>
+                <ion-toggle formControlName="isGrading"></ion-toggle>
+              </ion-item>
+            </ion-list>
+          </ion-card>
         </div>
       </div>
     </ion-list>

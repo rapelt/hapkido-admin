@@ -13,7 +13,7 @@
     <ion-title>Classes</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only [navPush]="addClassesPage">
+      <button ion-button icon-only [navPush]="addClassesPage" [navParams]="{'allClasses' : allClasses}">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -23,16 +23,19 @@
 
 <ion-content padding>
   <ion-item-group>
-    <ion-item-divider color="light">Next Class</ion-item-divider>
-    <button ion-item *ngIf="nextClass">
-      <span>{{nextClass?.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY'})}}</span>
-      <span item-end>{{nextClass?.classType}}</span>
-    </button>    <ion-item-divider color="light">Future Classes</ion-item-divider>
+    <ion-item-divider color="light">Future Classes</ion-item-divider>
     <ion-list>
-      <button ion-item *ngFor="let class of futureClasses | sortdates">
-        <span>{{class.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY'})}}</span>
-        <span item-end>{{class.classType}}</span>
-      </button>
+      <ion-item-sliding *ngFor="let class of futureClasses | sortdates">
+        <ion-item>
+          <span>{{class.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY, h:mm a'})}}</span>
+          <span item-end>{{class.classType}}</span>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" icon-only (click)="onDelete(class.classId)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-item-group>
 </ion-content>

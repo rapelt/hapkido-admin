@@ -53,7 +53,7 @@ describe('Class Data', () => {
       });
 
       classData.getClass("class1").subscribe((aclass) => {
-        expect(aclass.classid).toBe("123");
+        expect(aclass.classId).toBe("123");
       });
 
     }));
@@ -61,7 +61,7 @@ describe('Class Data', () => {
   it('update should return a classId',
     inject([ClassData, XHRBackend], (classData, mockBackend) => {
 
-      const mockResponse = {classid: "1234"};
+      const mockResponse = {classId: "1234"};
 
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
@@ -70,7 +70,7 @@ describe('Class Data', () => {
       });
 
       classData.updateClass("class1").subscribe((aclass) => {
-        expect(aclass.classid).toBe("1234");
+        expect(aclass.classId).toBe("1234");
       });
 
     }));

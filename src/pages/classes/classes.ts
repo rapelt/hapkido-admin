@@ -32,4 +32,8 @@ export class ClassesPage implements OnInit{
     });
   }
 
+  onDelete(classId){
+    this.classService.deleteClass(classId);
+  }
+
 }

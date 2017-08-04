@@ -88,4 +88,16 @@ describe('Page: Classes Page', () => {
     expect(classesPage.nextClass).toBe(class2);
     expect(spy.calls.any()).toEqual(true);
   }));
+
+  it('is initialised', fakeAsync(() => {
+    const spy = spyOn(classDataMock, 'deleteClass').and.returnValue(
+      Observable.of(classes)
+    );
+    classesPage.onDelete("asdasd");
+    tick();
+
+    fixture.detectChanges();
+
+    expect(spy.calls.any()).toEqual(true);
+  }));
 });

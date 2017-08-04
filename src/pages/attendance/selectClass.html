@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Select Class</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-item no-lines *ngIf="preselectedDates.length > 0">
+    <calendar (change)="onPeriodChange($event)" [preselectedValues]="preselectedDates" [maxDate]="maxDate" [selectionType]="'single'"></calendar>
+  </ion-item>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Select Class</ion-item-divider>
+    <ion-list>
+      <button ion-item *ngFor="let class of classesOnDay" [navPush]="classAttendancePage" [navParams]="{'aclass' : class}">
+        <span>{{class.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY, h:mm a'})}}</span>
+        <span item-end>{{class.classType}}</span>
+      </button>
+    </ion-list>
+  </ion-item-group>
+
+</ion-content>

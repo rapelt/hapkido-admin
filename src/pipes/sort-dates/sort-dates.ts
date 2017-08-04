@@ -7,7 +7,6 @@ import * as moment from "moment";
 })
 export class SortDatesPipe implements PipeTransform {
   transform(array: Class[], args: any): Class[] {
-    console.log("calling pipe");
     if (array === null) return array;
     array.sort((a, b) => {
       if (moment(a.date).isBefore(b.date)) {

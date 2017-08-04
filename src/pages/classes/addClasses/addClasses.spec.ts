@@ -6,7 +6,7 @@ import {AddClassesPage} from "./addClasses";
 import {ClassService} from "../../../services/class/class.service";
 import {ClassData} from "../../../services/class/class.data";
 import {ClassDataMock} from "../../../services/class/class.data.mock";
-import {NavParamsMock} from "../../../mocks";
+import {NavParamsMock} from "../../../testHelperMethods/NavParamsMock";
 import {MyApp} from "../../../app/app.component";
 import {IonCalendar} from "../../../components/calendar/calendar";
 import {ClassEvents} from "../../../services/class/class.events";
@@ -22,6 +22,28 @@ let el: HTMLElement;
 let classDataMock: ClassData;
 
 describe('Page: AddClasses Page', () => {
+
+  var now1 = new Date();
+  var now2 = new Date();
+  var now3 = new Date();
+  var now4 = new Date();
+  var now5 = new Date();
+
+  const class1 = new Class("123", "", [], false, moment(new Date(now1.setDate(now1.getDate() + 7))), "");
+  const class2 = new Class("124", "", [], false, moment(new Date(now2.setDate(now2.getDate() + 5))), "");
+  const class3 = new Class("125", "", [], false, moment(new Date(now3.setDate(now3.getDate() + 123))), "");
+  const class4 = new Class("126", "", [], false, moment(new Date(now4.setDate(now4.getDate() - 12))), "");
+  const class5 = new Class("127", "", [], false, moment(new Date(now5.setDate(now5.getDate() - 1))), "");
+
+  let classes = [class1, class2, class3, class4, class5];
+
+  let datesMoments = [class1.date, class2.date, class3.date, class4.date, class5.date];
+
+  const date1 = new Date(now2.setDate(now2.getDate() + 5));
+  const date2 = new Date(now2.setDate(now2.getDate() + 12));
+  const date3 = new Date(now2.setDate(now2.getDate() + 23));
+
+  let datesDates = [date1, date2, date3];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,6 +68,8 @@ describe('Page: AddClasses Page', () => {
     fixture = TestBed.createComponent(AddClassesPage);
     addClassesPage    = fixture.componentInstance;
     classDataMock = fixture.debugElement.injector.get(ClassData);
+    NavParamsMock.setParams("allClasses", classes);
+
     addClassesPage.ngOnInit();
   });
 
@@ -56,27 +80,7 @@ describe('Page: AddClasses Page', () => {
     el = null;
   });
 
-  var now1 = new Date();
-  var now2 = new Date();
-  var now3 = new Date();
-  var now4 = new Date();
-  var now5 = new Date();
 
-  const class1 = new Class("123", "", [], false, moment(new Date(now1.setDate(now1.getDate() + 7))), "");
-  const class2 = new Class("124", "", [], false, moment(new Date(now2.setDate(now2.getDate() + 5))), "");
-  const class3 = new Class("125", "", [], false, moment(new Date(now3.setDate(now3.getDate() + 123))), "");
-  const class4 = new Class("126", "", [], false, moment(new Date(now4.setDate(now4.getDate() - 12))), "");
-  const class5 = new Class("127", "", [], false, moment(new Date(now5.setDate(now5.getDate() - 1))), "");
-
-  let classes = [class1, class2, class3, class4, class5];
-
-  let datesMoments = [class1.date, class2.date, class3.date, class4.date, class5.date];
-
-  const date1 = new Date(now2.setDate(now2.getDate() + 5));
-  const date2 = new Date(now2.setDate(now2.getDate() + 12));
-  const date3 = new Date(now2.setDate(now2.getDate() + 23));
-
-  let datesDates = [date1, date2, date3];
 
 
   it('is created', () => {
@@ -85,19 +89,13 @@ describe('Page: AddClasses Page', () => {
   });
 
   it('is initialised', fakeAsync(() => {
-    const spy = spyOn(classDataMock, 'getAllClasses').and.returnValue(
-      Observable.of(classes)
-    );
     addClassesPage.ngOnInit();
     tick();
-
     fixture.detectChanges();
 
     expect(addClassesPage.classForm).not.toBeNull();
     expect(addClassesPage.classForm.controls.classes).not.toBeNull();
-
     expect(addClassesPage.preselectedDates).toEqual(datesMoments);
-    expect(spy.calls.any()).toEqual(true);
   }));
 
   it('onPeriodChange is called with dates and updates dates', fakeAsync(() => {

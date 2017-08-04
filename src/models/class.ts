@@ -2,7 +2,7 @@ import {Moment} from "moment";
 
 export class Class {
   constructor(
-    public classid: string,
+    public classId: string,
     public classType: string,
     public attendance: Array<string>,
     public isGrading: boolean,

@@ -37,22 +37,23 @@ describe('Student Service', () => {
   const class4 = new Class("126", "", [], false, moment(new Date(now4.setDate(now4.getDate() - 12))), "");
   const class5 = new Class("127", "", [], false, moment(new Date(now5.setDate(now5.getDate() - 1))), "");
 
+
   let classes = [class1, class2, class3, class4, class5];
 
-  it('getsNextClass should return', inject([ClassService], (classService: ClassService) => {
+  it('getsNextClass should return the next class', inject([ClassService], (classService: ClassService) => {
     expect(classService.getNextClass(classes)).toBe(class2);
   }));
 
-  it('getFutureClasses should return', inject([ClassService], (classService: ClassService) => {
+  it('getFutureClasses should return an array of future classes', inject([ClassService], (classService: ClassService) => {
     const futureClasses = classService.getFutureClasses(classes);
 
     expect(futureClasses.length).toBe(3);
-    expect(futureClasses[0].classid).toBe(class1.classid);
-    expect(futureClasses[1].classid).toBe(class2.classid);
-    expect(futureClasses[2].classid).toBe(class3.classid);
+    expect(futureClasses[0].classId).toBe(class1.classId);
+    expect(futureClasses[1].classId).toBe(class2.classId);
+    expect(futureClasses[2].classId).toBe(class3.classId);
   }));
 
-  it('getAllDates should return', inject([ClassService], (classService: ClassService) => {
+  it('getAllDates should return all classes as Dates', inject([ClassService], (classService: ClassService) => {
     const allDates = classService.getAllDates(classes);
 
     expect(allDates.length).toBe(5);
@@ -61,5 +62,16 @@ describe('Student Service', () => {
     expect(allDates[2]).toBe(class3.date);
     expect(allDates[3]).toBe(class4.date);
     expect(allDates[4]).toBe(class5.date);
+  }));
+
+  it('getClassesOnDay should return classes for that day', inject([ClassService], (classService: ClassService) => {
+    var newDate = new Date();
+
+    const date = new Date(newDate.setDate(newDate.getDate() + 7));
+
+    const allClasses = classService.getClassesOnDay(date, classes);
+
+    expect(allClasses.length).toBe(1);
+    expect(allClasses[0]).toBe(class1);
   }));
 });
