@@ -25,34 +25,60 @@ export class ViewStudentPage implements OnInit{
   }
 
   presentActionSheet() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Student Details Menu',
-      buttons: [
-        {
-          text: 'Delete',
-          role: "destructive",
-          handler: () => {
-            this.presentConfirm();
+    if(this.student.isActive !== false){
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Student Details Menu',
+        buttons: [
+          {
+            text: 'Deactivate',
+            role: "destructive",
+            handler: () => {
+              this.presentConfirmDeactivate();
+            }
+          },{
+            text: 'Edit',
+            handler: () => {
+              this.navCtrl.push(EditStudentPage, {mode: 'Edit', student: this.student});
+            }
+          },{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {}
           }
-        },{
-          text: 'Edit',
-          handler: () => {
-            this.navCtrl.push(EditStudentPage, {mode: 'Edit', student: this.student});
+        ]
+      });
+      actionSheet.present();
+    } else {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Student Details Menu',
+        buttons: [
+          {
+            text: 'Reactivate',
+            role: "destructive",
+            handler: () => {
+              this.presentConfirmReactivate();
+            }
+          },{
+            text: 'Edit',
+            handler: () => {
+              this.navCtrl.push(EditStudentPage, {mode: 'Edit', student: this.student});
+            }
+          },{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {}
           }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {}
-        }
-      ]
-    });
-    actionSheet.present();
+        ]
+      });
+      actionSheet.present();
+    }
+
   }
 
-  presentConfirm() {
+  presentConfirmDeactivate() {
     let alert = this.alertCtrl.create({
       title: 'Are you sure?',
-      message: `Do you want to delete ${this.student.name.firstname} ${this.student.name.lastname}`,
+      message: `Do you want to deactivate ${this.student.name.firstname} ${this.student.name.lastname}`,
       buttons: [
         {
           text: 'Cancel',
@@ -62,10 +88,35 @@ export class ViewStudentPage implements OnInit{
           }
         },
         {
-          text: 'Delete',
+          text: 'Deactivate',
           role: 'delete',
           handler: () => {
-            this.studentService.deleteStudent(this.student.hbId);
+            this.studentService.deactivateStudent(this.student.hbId);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  presentConfirmReactivate() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: `Do you want to Reactivate ${this.student.name.firstname} ${this.student.name.lastname}`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Reactivate',
+          role: 'delete',
+          handler: () => {
+            this.studentService.reactivateStudent(this.student.hbId);
             this.navCtrl.pop();
           }
         }

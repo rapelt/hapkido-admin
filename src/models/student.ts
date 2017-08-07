@@ -10,7 +10,8 @@ export class Student {
         public grade: number,
         public isAdmin: boolean,
         public gradingDates: GradingDates [],
-        public feedback: Feedback []
+        public feedback: Feedback [],
+        public isActive: boolean
 
     ){}
 }

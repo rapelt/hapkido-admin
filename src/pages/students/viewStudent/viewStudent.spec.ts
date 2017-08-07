@@ -25,7 +25,7 @@ let el: HTMLElement;
 describe('Page: View Student Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], []);
+    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true);
     let actionSheetMock: ActionSheet;
     let alertMock: Alert;
 
@@ -93,13 +93,13 @@ describe('Page: View Student Page', () => {
 
     it('should call actionSheet create', () => {
         viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
-        viewStudentPage.presentConfirm();
+        viewStudentPage.presentConfirmDeactivate();
         expect(viewStudentPage.alertCtrl.create).toHaveBeenCalled();
     });
 
     it('should call present on actionSheet', () => {
         viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
-        viewStudentPage.presentConfirm();
+        viewStudentPage.presentConfirmDeactivate();
         expect(alertMock.present).toHaveBeenCalled();
     });
 

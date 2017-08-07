@@ -29,4 +29,12 @@ describe('Student Service', () => {
     studentService.getAllStudents();
     expect(studentService.getStudents().length).toBe(2);
   }));
+
+  it('getStudentsActiveState should return an array of 2 arrays with 1 of active students and the other of inactive students', inject([StudentService], (studentService: StudentService) => {
+    studentService.getAllStudents();
+    let studentStatus = studentService.getStudentsActiveState(studentService.getStudents());
+    expect(studentStatus.length).toBe(2);
+    expect(studentStatus[0][0]).toBeTruthy();
+    expect(studentStatus[1][0].isActive).toBeFalsy()
+  }));
 });

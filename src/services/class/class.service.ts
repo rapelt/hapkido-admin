@@ -104,7 +104,6 @@ export class ClassService {
   addStudent(studentId: string, classId: string){
     this.classData.addStudentToClass(studentId, classId).subscribe(response => {
       this.getAllClasses();
-      console.log(response);
     }, error => {
       console.log(error);
     });
@@ -113,7 +112,6 @@ export class ClassService {
   removeStudent(studentId: string, classId: string) {
     this.classData.removeStudentFromClass(studentId, classId).subscribe(response => {
       this.getAllClasses();
-      console.log(response);
     }, error => {
       console.log(error);
     });

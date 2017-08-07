@@ -56,9 +56,9 @@
       </div>
     </ion-list>
 
-    <button type="button" ion-button block (click)="addClass()">Add Another Class</button>
+    <button type="button" ion-button block (click)="addClass()" icon-start><ion-icon name="add"></ion-icon>Add Another Class</button>
 
 
-    <button type="submit" ion-button block [disabled]="!classForm.valid">Add Classes</button>
+    <button type="submit" ion-button block [disabled]="!classForm.valid">Save</button>
   </form>
 </ion-content>

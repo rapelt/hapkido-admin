@@ -22,7 +22,7 @@ let el: HTMLElement;
 describe('Page: Students Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], []);
+    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true);
 
     let studentDataMock: StudentDataMock;
 
@@ -70,7 +70,7 @@ describe('Page: Students Page', () => {
         );
         studentsPage.ngOnInit();
         fixture.detectChanges();
-        expect(studentsPage.students).toEqual([rebekah]);
+        expect(studentsPage.students).toEqual([[rebekah], []]);
         expect(spy.calls.any()).toEqual(true);
     }));
 });

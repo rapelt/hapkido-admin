@@ -2,6 +2,7 @@ import {Student} from "../../models/student";
 import {Injectable} from "@angular/core";
 import {StudentData} from "./student.data";
 import {StudentEvents} from "./student.events";
+import * as _ from "underscore";
 
 @Injectable()
 export class StudentService {
@@ -49,4 +50,31 @@ export class StudentService {
       console.log(error);
     });
   }
+
+  deactivateStudent(hbId: string) {
+    this.studentData.deactivateStudent(hbId).subscribe(response => {
+      this.getAllStudents();
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  reactivateStudent(hbId: string) {
+    this.studentData.reactivateStudent(hbId).subscribe(response => {
+      this.getAllStudents();
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getStudentsActiveState(studentList){
+    let active: any;
+
+    active = _.partition(studentList, (student) =>{
+      return student.isActive || student.isActive == null;
+    });
+
+    return active;
+  }
+
 }

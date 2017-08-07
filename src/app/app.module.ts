@@ -27,8 +27,6 @@ import {SelectClassPage} from "../pages/attendance/selectClass";
 import {ClassAttendancePage} from "../pages/attendance/class-attendance/class-attendance";
 import {AttendanceService} from "../services/attendance.service";
 import {EnvironmentsModule} from "./enviroment/enviroment.module";
-import { EnvVariableProvider } from '../providers/env-variable/env-variable';
-
 
 @NgModule({
   declarations: [
@@ -74,9 +72,7 @@ import { EnvVariableProvider } from '../providers/env-variable/env-variable';
     ClassService,
     ClassData,
     ClassEvents,
-    AttendanceService,
-    EnvVariableProvider,
-    EnvVariableProvider
+    AttendanceService
   ]
 })
 export class AppModule {}

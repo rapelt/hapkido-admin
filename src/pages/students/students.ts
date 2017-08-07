@@ -10,10 +10,12 @@ import {StudentEvents} from "../../services/student/student.events";
   templateUrl: 'students.html',
 })
 export class StudentsPage implements OnInit{
-  students: any;
+  students: any = [[], []];
 
   editStudentPage: any = EditStudentPage;
   viewStudentPage: any = ViewStudentPage;
+
+  activeStatus = "active";
 
   constructor(private studentService: StudentService,
               private gradeService:GradeService,
@@ -24,7 +26,7 @@ export class StudentsPage implements OnInit{
     this.studentService.getAllStudents();
 
     this.studentEvent.studentsUpdated.subscribe(students => {
-      this.students = students;
+      this.students = this.studentService.getStudentsActiveState(students);
     });
   }
 }

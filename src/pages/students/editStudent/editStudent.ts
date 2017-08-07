@@ -31,7 +31,7 @@ export class EditStudentPage implements OnInit{
 
     if(this.mode === 'New'){
       const name = new Name('', '');
-      this.student = new Student(name, 'hb', '0000', 0, false, [], []);
+      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true);
     }
 
     if(this.mode === 'Edit'){

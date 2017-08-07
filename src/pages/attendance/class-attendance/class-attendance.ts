@@ -41,7 +41,7 @@ export class ClassAttendancePage implements OnInit{
       let attendanceLists = this.attendanceService.getAttendedStudents(this.aclass.attendance, students);
 
       this.attended = attendanceLists[0];
-      this.notAttended = attendanceLists[1];
+      this.notAttended = this.studentService.getStudentsActiveState(attendanceLists[1])[0];
     });
   }
 

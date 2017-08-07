@@ -32,15 +32,18 @@ describe('Page: Class Attendance Page', () => {
   let aclass = new Class("126", "", ['hb030', 'hb043'], false, moment(new Date(new Date().setDate(new Date().getDate() - 12))), "");
 
   const name1: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], []);
+  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], true);
 
   const name2: Name = new Name('mark', 'higgins');
-  const mark = new Student(name2, 'hb055', '0000', 2, true, [], []);
+  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], true);
 
   const name3: Name = new Name('daniel', 'radcliffe');
-  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], []);
+  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], true);
 
-  let students = [rebekah, mark, daniel];
+  const name4: Name = new Name('John', 'Geddes');
+  const john = new Student(name4, 'hb044', '0000', 2, true, [], [], false);
+
+  let students = [rebekah, mark, daniel, john];
 
   let studentDataMock: StudentDataMock;
   let classDataMock: ClassDataMock;
@@ -101,6 +104,9 @@ describe('Page: Class Attendance Page', () => {
     expect(classAttendancePage.aclass).toEqual(aclass);
 
     expect(classAttendancePage.students).toEqual(students);
+
+    expect(classAttendancePage.attended.length).toEqual(2);
+    expect(classAttendancePage.notAttended.length).toEqual(1);
     expect(spy.calls.any()).toEqual(true);
   });
 

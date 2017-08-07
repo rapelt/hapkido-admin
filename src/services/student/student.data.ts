@@ -34,6 +34,14 @@ export class StudentData {
         return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json());
     }
 
+    deactivateStudent(hbId: string): Observable<Student> {
+        return this.http.post(this.userUrl + "deactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json());
+    }
+
+    reactivateStudent(hbId: string): Observable<Student> {
+        return this.http.post(this.userUrl + "reactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json());
+    }
+
     getHeaders() {
         return new Headers(
           {

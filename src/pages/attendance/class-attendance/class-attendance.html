@@ -33,9 +33,14 @@
 
   <div [ngSwitch]="attendance">
     <ion-list *ngSwitchCase="'studentsAttended'">
-      <button ion-item *ngFor="let student of attended; let i = index" (click)="removeStudent(student, i)">
-        {{student.name.firstname}} {{student.name.lastname}}
-      </button>
+      <div *ngIf="attended?.length > 0">
+        <button ion-item *ngFor="let student of attended; let i = index" (click)="removeStudent(student, i)">
+          {{student.name.firstname}} {{student.name.lastname}}
+        </button>
+      </div>
+      <div *ngIf="attended?.length == 0">
+        <ion-item>No students yet</ion-item>
+      </div>
     </ion-list>
 
     <ion-list *ngSwitchCase="'not-attended'">
