@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 import {Class} from "../../models/class";
+import {EnvVariables} from "../../app/enviroment/enviroment.token";
 
 @Injectable()
 export class ClassData {
 
-  //userUrl: string = 'http://localhost:8080/class/';
-  userUrl: string = 'https://tfub8jwq4h.execute-api.ap-southeast-2.amazonaws.com/dev/class/';
+  userUrl: string = 'http://localhost:8080/class/';
 
-  constructor(public http: Http) {
+  constructor(public http: Http, @Inject(EnvVariables) public envVariables) {
+    this.userUrl = this.envVariables.classAPIEndpoint;
   }
 
   getClass(classId: string): Observable<Class> {

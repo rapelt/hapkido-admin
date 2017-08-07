@@ -9,13 +9,14 @@ import {Class} from "../../models/class";
 import * as moment from 'moment';
 import {ClassData} from "./class.data";
 import {ClassEvents} from "./class.events";
+import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
 
 describe('Student Service', () => {
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, EnvironmentsModule],
       providers: [
         ClassService,
         ClassData,

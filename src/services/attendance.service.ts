@@ -22,12 +22,10 @@ export class AttendanceService {
   }
 
   addStudentToAClass(studentId: string, classId: string){
-    this.studentService.addClass(studentId, classId);
     this.classService.addStudent(studentId, classId);
   }
 
   removeStudentFromAClass(studentId: string, classId: string){
-    this.studentService.removeClass(studentId, classId);
     this.classService.removeStudent(studentId, classId);
   }
 }

@@ -49,20 +49,4 @@ export class StudentService {
       console.log(error);
     });
   }
-
-  removeClass(studentId: string, classId: string) {
-    this.studentData.removeClass(studentId, classId).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  addClass(studentId: string, classId: string) {
-    this.studentData.addClass(studentId, classId).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
-  }
 }

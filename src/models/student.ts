@@ -9,7 +9,6 @@ export class Student {
         public pinNumber: string,
         public grade: number,
         public isAdmin: boolean,
-        public classes: number [],
         public gradingDates: GradingDates [],
         public feedback: Feedback []
 

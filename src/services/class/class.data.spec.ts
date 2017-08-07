@@ -9,13 +9,14 @@ import {MockBackend} from '@angular/http/testing';
 import {ClassData} from "./class.data";
 import {Class} from "../../models/class";
 import * as moment from "moment";
+import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
 
 describe('Class Data', () => {
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, EnvironmentsModule],
       providers: [
         ClassData,
         {provide: XHRBackend, useClass: MockBackend},

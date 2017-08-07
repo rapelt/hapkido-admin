@@ -4,6 +4,8 @@ import { DebugElement } from '@angular/core';
 import {IonicModule, NavController} from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import {HomePage} from "./home";
+import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
+import {EnvVariables} from "../../app/enviroment/enviroment.token";
 
 let comp: HomePage;
 let fixture: ComponentFixture<HomePage>;
@@ -19,7 +21,8 @@ describe('Page: Home Page', () => {
                 NavController
             ],
             imports: [
-                IonicModule.forRoot(MyApp)
+                IonicModule.forRoot(MyApp),
+                EnvironmentsModule
             ]
         }).compileComponents();
     }));

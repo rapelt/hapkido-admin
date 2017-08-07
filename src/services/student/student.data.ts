@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 import {Student} from "../../models/student";
+import {EnvVariables} from "../../app/enviroment/enviroment.token";
 
 @Injectable()
 export class StudentData {
 
-    //userUrl: string = 'http://localhost:8080/student/';
-    userUrl: string = 'https://tfub8jwq4h.execute-api.ap-southeast-2.amazonaws.com/dev/student/';
+    userUrl: string = 'http://localhost:8080/student/';
 
-
-    constructor(public http: Http) {
+    constructor(public http: Http, @Inject(EnvVariables) public envVariables) {
+        this.userUrl = this.envVariables.studentAPIEndpoint;
     }
 
     getStudent(hbid: string): Observable<Student> {
@@ -32,16 +32,6 @@ export class StudentData {
 
     deleteStudent(hbid: string): Observable<Student> {
         return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json());
-    }
-
-    addClass(hbid: string, classId: string): Observable<Student> {
-        console.log(classId);
-        return this.http.post(this.userUrl + "addtoclass/" + hbid, {classId: classId}, this.getHeaders()).map((response: Response) => response.json());
-    }
-
-    removeClass(hbid: string, classId: string): Observable<Student> {
-        console.log(classId);
-        return this.http.post(this.userUrl + "removefromclass/" + hbid, {classId: classId}, this.getHeaders()).map((response: Response) => response.json());
     }
 
     getHeaders() {

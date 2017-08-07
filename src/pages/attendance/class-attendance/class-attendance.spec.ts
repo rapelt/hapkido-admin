@@ -32,13 +32,13 @@ describe('Page: Class Attendance Page', () => {
   let aclass = new Class("126", "", ['hb030', 'hb043'], false, moment(new Date(new Date().setDate(new Date().getDate() - 12))), "");
 
   const name1: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], []);
+  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], []);
 
   const name2: Name = new Name('mark', 'higgins');
-  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], []);
+  const mark = new Student(name2, 'hb055', '0000', 2, true, [], []);
 
   const name3: Name = new Name('daniel', 'radcliffe');
-  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], []);
+  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], []);
 
   let students = [rebekah, mark, daniel];
 
@@ -113,12 +113,9 @@ describe('Page: Class Attendance Page', () => {
       Observable.of([aclass])
     );
 
-    const spyStudent = spyOn(studentDataMock, 'addClass').and.returnValue(
-      Observable.of([rebekah])
-    );;
     const spyClass = spyOn(classDataMock, 'addStudentToClass').and.returnValue(
       Observable.of([aclass])
-    );;
+    );
 
     classAttendancePage.ngOnInit();
     fixture.detectChanges();
@@ -126,7 +123,6 @@ describe('Page: Class Attendance Page', () => {
     classAttendancePage.addStudent(rebekah, 0);
     fixture.detectChanges();
 
-    expect(spyStudent.calls.count()).toEqual(1);
     expect(spyClass.calls.count()).toEqual(1);
   });
 
@@ -139,9 +135,6 @@ describe('Page: Class Attendance Page', () => {
       Observable.of([aclass])
     );
 
-    const spyStudent = spyOn(studentDataMock, 'removeClass').and.returnValue(
-      Observable.of([aclass])
-    );
     const spyClass = spyOn(classDataMock, 'removeStudentFromClass').and.returnValue(
       Observable.of([aclass])
     );
@@ -152,7 +145,6 @@ describe('Page: Class Attendance Page', () => {
     classAttendancePage.removeStudent(rebekah, 0);
     fixture.detectChanges();
 
-    expect(spyStudent.calls.count()).toEqual(1);
     expect(spyClass.calls.count()).toEqual(1);
 
   });

@@ -9,13 +9,14 @@ import {MockBackend} from '@angular/http/testing';
 import {StudentData} from "./student.data";
 import {Name} from "../../models/name";
 import {Student} from "../../models/student";
+import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
 
 describe('Student Data', () => {
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, EnvironmentsModule],
       providers: [
         StudentData,
         {provide: XHRBackend, useClass: MockBackend},
@@ -24,7 +25,7 @@ describe('Student Data', () => {
   });
 
   const name: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
+  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], []);
 
   it('getStudent should return an Observable<Student>',
     inject([StudentData, XHRBackend], (studentData, mockBackend) => {

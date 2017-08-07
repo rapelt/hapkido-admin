@@ -25,7 +25,7 @@ let el: HTMLElement;
 describe('Page: View Student Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], []);
+    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], []);
     let actionSheetMock: ActionSheet;
     let alertMock: Alert;
 

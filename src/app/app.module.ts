@@ -26,6 +26,8 @@ import {ClassEvents} from "../services/class/class.events";
 import {SelectClassPage} from "../pages/attendance/selectClass";
 import {ClassAttendancePage} from "../pages/attendance/class-attendance/class-attendance";
 import {AttendanceService} from "../services/attendance.service";
+import {EnvironmentsModule} from "./enviroment/enviroment.module";
+import { EnvVariableProvider } from '../providers/env-variable/env-variable';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import {AttendanceService} from "../services/attendance.service";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    EnvironmentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -71,7 +74,9 @@ import {AttendanceService} from "../services/attendance.service";
     ClassService,
     ClassData,
     ClassEvents,
-    AttendanceService
+    AttendanceService,
+    EnvVariableProvider,
+    EnvVariableProvider
   ]
 })
 export class AppModule {}

@@ -119,7 +119,7 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
 
   get viewDate(): Date { return this._viewDate; };
   @Input('view-date')
-  set viewDate(viewDate: Date) { this._setViewDate(viewDate); console.log(this._viewDate) }
+  set viewDate(viewDate: Date) { this._setViewDate(viewDate); }
 
   private _disabled: boolean = false;
   get disabled(): boolean { return this._disabled; }

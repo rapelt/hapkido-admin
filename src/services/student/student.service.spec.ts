@@ -8,13 +8,14 @@ import {StudentService} from "./student.service";
 import {StudentData} from "./student.data";
 import {StudentEvents} from "./student.events";
 import {StudentDataMock} from "./student.data.mock";
+import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
 
 describe('Student Service', () => {
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, EnvironmentsModule],
       providers: [
         StudentService,
         {provide: StudentData, useClass: StudentDataMock},
