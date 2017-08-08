@@ -9,18 +9,24 @@
   <ion-navbar>
     <ion-title>{{aclass?.date.format('ddd, DD/MM')}} {{aclass?.classType}} </ion-title>
 
-    <ion-buttons end *ngIf="attended?.length <= 0">
-      <button ion-button icon-only (click)="deleteClass()">
-        <ion-icon name="trash"></ion-icon>
+    <ion-buttons end>
+      <button class="student-search-popover" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
       </button>
+
+      <!--<button ion-button icon-only (click)="deleteClass()">
+        <ion-icon name="trash"></ion-icon>
+      </button>-->
     </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <div padding>
+
+<ion-content>
+  <div>
     <ion-segment [(ngModel)]="attendance">
       <ion-segment-button value="studentsAttended">
         Attended
@@ -31,11 +37,12 @@
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="attendance">
+  <div [ngSwitch]="attendance" padding>
     <ion-list *ngSwitchCase="'studentsAttended'">
       <div *ngIf="attended?.length > 0">
-        <button ion-item *ngFor="let student of attended; let i = index" (click)="removeStudent(student, i)">
-          {{student.name.firstname}} {{student.name.lastname}}
+        <button ion-item *ngFor="let student of attended | alphabeticalstudents; let i = index" (click)="removeStudent(student, i)">
+          <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+          <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
         </button>
       </div>
       <div *ngIf="attended?.length == 0">
@@ -44,8 +51,9 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'not-attended'">
-      <button ion-item *ngFor="let student of notAttended; let i = index" (click)="addStudent(student, i)">
-        {{student.name.firstname}} {{student.name.lastname}}
+      <button ion-item *ngFor="let student of notAttended | alphabeticalstudents; let i = index" (click)="addStudent(student, i)">
+        <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+        <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
       </button>
     </ion-list>
   </div>

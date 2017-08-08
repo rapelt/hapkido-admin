@@ -22,6 +22,7 @@ import {ClassEvents} from "../../../services/class/class.events";
 import {Observable} from "rxjs";
 import {Name} from "../../../models/name";
 import {Student} from "../../../models/student";
+import {AlphabeticalStudentsPipe} from "../../../pipes/alphabetical-students/alphabetical-students";
 
 let classAttendancePage: ClassAttendancePage;
 let fixture: ComponentFixture<ClassAttendancePage>;
@@ -32,16 +33,16 @@ describe('Page: Class Attendance Page', () => {
   let aclass = new Class("126", "", ['hb030', 'hb043'], false, moment(new Date(new Date().setDate(new Date().getDate() - 12))), "");
 
   const name1: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], true);
+  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], true, 'Adults');
 
   const name2: Name = new Name('mark', 'higgins');
-  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], true);
+  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], true, 'Adults');
 
   const name3: Name = new Name('daniel', 'radcliffe');
-  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], true);
+  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], true, 'Adults');
 
   const name4: Name = new Name('John', 'Geddes');
-  const john = new Student(name4, 'hb044', '0000', 2, true, [], [], false);
+  const john = new Student(name4, 'hb044', '0000', 2, true, [], [], false, 'Adults');
 
   let students = [rebekah, mark, daniel, john];
 
@@ -51,7 +52,7 @@ describe('Page: Class Attendance Page', () => {
     beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [MyApp, ClassAttendancePage],
+      declarations: [MyApp, ClassAttendancePage, AlphabeticalStudentsPipe],
       providers: [
         NavController,
         {provide: NavParams, useClass: NavParamsMock},

@@ -24,8 +24,8 @@ let el: HTMLElement;
 
 describe('Page: View Student Page', () => {
 
-    const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true);
+
+
     let actionSheetMock: ActionSheet;
     let alertMock: Alert;
 
@@ -54,14 +54,6 @@ describe('Page: View Student Page', () => {
         }).compileComponents();
     }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ViewStudentPage);
-        de = fixture.debugElement.componentInstance;
-        viewStudentPage    = fixture.componentInstance;
-        NavParamsMock.setParams("student", rebekah);
-        viewStudentPage.ngOnInit();
-    });
-
     afterEach(() => {
         fixture.destroy();
         viewStudentPage = null;
@@ -70,37 +62,91 @@ describe('Page: View Student Page', () => {
         NavParamsMock.resetParams();
     });
 
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ViewStudentPage);
+        de = fixture.debugElement.componentInstance;
+        viewStudentPage    = fixture.componentInstance;
+    });
+
     it('is created', () => {
         expect(fixture).toBeTruthy();
         expect(viewStudentPage).toBeTruthy();
     });
 
-    it('is initialised with a Student when a Student is set', () => {
-        expect(viewStudentPage.student).toEqual(rebekah);
+    describe('Active Student', () =>{
+        const name : Name = new Name('Rebekah', 'Apelt');
+        const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+
+        beforeEach(() => {
+            NavParamsMock.setParams("student", rebekah);
+            viewStudentPage.ngOnInit();
+        });
+
+        it('is initialised with a Student when a Student is set', () => {
+            expect(viewStudentPage.student).toEqual(rebekah);
+        });
+
+        it('should call actionSheet create', () => {
+            viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
+            viewStudentPage.presentActionSheet();
+            expect(viewStudentPage.actionSheetCtrl.create).toHaveBeenCalled();
+        });
+
+        it('should call present on actionSheet', () => {
+            viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
+            viewStudentPage.presentActionSheet();
+            expect(actionSheetMock.present).toHaveBeenCalled();
+        });
+
+        it('should call actionSheet create', () => {
+            viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+            viewStudentPage.presentConfirmDeactivate();
+            expect(viewStudentPage.alertCtrl.create).toHaveBeenCalled();
+        });
+
+        it('should call present on actionSheet', () => {
+            viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+            viewStudentPage.presentConfirmDeactivate();
+            expect(alertMock.present).toHaveBeenCalled();
+        });
     });
 
-    it('should call actionSheet create', () => {
-        viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
-        viewStudentPage.presentActionSheet();
-        expect(viewStudentPage.actionSheetCtrl.create).toHaveBeenCalled();
-    });
+    describe('Inactive Student', () =>{
 
-    it('should call present on actionSheet', () => {
-        viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
-        viewStudentPage.presentActionSheet();
-        expect(actionSheetMock.present).toHaveBeenCalled();
-    });
+        const name2 : Name = new Name('Daniel', 'Blarg');
+        const daniel = new Student(name2, 'hb031', '0000', 2, true, [], [], false, 'Adults');
 
-    it('should call actionSheet create', () => {
-        viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
-        viewStudentPage.presentConfirmDeactivate();
-        expect(viewStudentPage.alertCtrl.create).toHaveBeenCalled();
-    });
+        beforeEach(() => {
+            NavParamsMock.setParams("student", daniel);
+            viewStudentPage.ngOnInit();
+        });
 
-    it('should call present on actionSheet', () => {
-        viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
-        viewStudentPage.presentConfirmDeactivate();
-        expect(alertMock.present).toHaveBeenCalled();
-    });
+        it('is initialised with a Student when a Student is set', () => {
+            expect(viewStudentPage.student).toEqual(daniel);
+        });
 
+        it('should call actionSheet create', () => {
+            viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
+            viewStudentPage.presentActionSheet();
+            expect(viewStudentPage.actionSheetCtrl.create).toHaveBeenCalled();
+        });
+
+        it('should call present on actionSheet', () => {
+            viewStudentPage.actionSheetCtrl = ActionSheetControllerMock.instance(actionSheetMock);
+            viewStudentPage.presentActionSheet();
+            expect(actionSheetMock.present).toHaveBeenCalled();
+        });
+
+        it('should call actionSheet create', () => {
+            viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+            viewStudentPage.presentConfirmReactivate();
+            expect(viewStudentPage.alertCtrl.create).toHaveBeenCalled();
+        });
+
+        it('should call present on actionSheet', () => {
+            viewStudentPage.alertCtrl = AlertControllerMock.instance(alertMock);
+            viewStudentPage.presentConfirmReactivate();
+            expect(alertMock.present).toHaveBeenCalled();
+        });
+    });
 });

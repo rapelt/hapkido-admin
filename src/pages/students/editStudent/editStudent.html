@@ -37,6 +37,13 @@
           <ion-option *ngFor="let grade of grades" [value]="grade.id">{{grade.longName}}</ion-option>
         </ion-select>
       </ion-item>
+
+      <ion-item>
+        <ion-label>PreferredClass</ion-label>
+        <ion-select formControlName="preferredClass">
+          <ion-option *ngFor="let classType of classTypes" [value]="classType">{{classType}}</ion-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
 
     <button type="submit" ion-button block>{{mode}} Student</button>

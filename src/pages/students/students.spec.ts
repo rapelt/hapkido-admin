@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {GradeService} from "../../services/grade.service";
 import {StudentService} from "../../services/student/student.service";
 import {StudentEvents} from "../../services/student/student.events";
+import {AlphabeticalStudentsPipe} from "../../pipes/alphabetical-students/alphabetical-students";
 
 let studentsPage: StudentsPage;
 let fixture: ComponentFixture<StudentsPage>;
@@ -22,13 +23,13 @@ let el: HTMLElement;
 describe('Page: Students Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true);
+    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
 
     let studentDataMock: StudentDataMock;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyApp, StudentsPage],
+            declarations: [MyApp, StudentsPage, AlphabeticalStudentsPipe],
             providers: [
                 NavController,
                 {provide: NavParams, useClass: NavParamsMock},

@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Class} from "../../../models/class";
 import {StudentService} from "../../../services/student/student.service";
 import {StudentEvents} from "../../../services/student/student.events";
 import {Student} from "../../../models/student";
 import {AttendanceService} from "../../../services/attendance.service";
 import {ClassService} from "../../../services/class/class.service";
+import {SearchStudentPage} from "../../search-student/search-student";
+import * as _ from "underscore";
+import {GradeService} from "../../../services/grade.service";
 
 @Component({
   selector: 'page-class-attendance',
@@ -28,7 +31,9 @@ export class ClassAttendancePage implements OnInit{
               public studentService: StudentService,
               public studentEvents: StudentEvents,
               private attendanceService :AttendanceService,
-              private classService: ClassService) {
+              private classService: ClassService,
+              private popoverCtrl: PopoverController,
+              private gradeService: GradeService) {
   }
 
   ngOnInit(){
@@ -60,6 +65,44 @@ export class ClassAttendancePage implements OnInit{
   deleteClass(){
     this.classService.deleteClass(this.aclass.classId);
     this.navCtrl.pop();
+  }
+
+  presentPopover(event){
+    let popover = this.popoverCtrl.create(SearchStudentPage, {students: this.students});
+    popover.present({
+      ev: event
+    });
+
+    popover.onDidDismiss((popoverData: Student) => {
+      console.log(popoverData);
+      if(popoverData == null){
+        return;
+      }
+      let studentIndex = null;
+
+      const notAttended = _.find(this.notAttended, (student, index) =>{
+        if(student.hbId === popoverData.hbId){
+          studentIndex = index;
+          return student;
+        }
+      });
+
+      if(notAttended){
+        this.notAttended.splice(studentIndex, 1);
+      }
+
+      const attendedAlready = _.find(this.attended, (student) =>{
+        if(student.hbId === popoverData.hbId){
+          return student;
+        }
+      });
+
+      if(!attendedAlready){
+        this.attended.push(popoverData);
+      }
+
+      this.attendanceService.addStudentToAClass(popoverData.hbId, this.aclass.classId);
+    })
   }
 
 }

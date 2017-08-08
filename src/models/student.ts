@@ -11,7 +11,7 @@ export class Student {
         public isAdmin: boolean,
         public gradingDates: GradingDates [],
         public feedback: Feedback [],
-        public isActive: boolean
-
+        public isActive: boolean,
+        public preferredClass: string
     ){}
 }

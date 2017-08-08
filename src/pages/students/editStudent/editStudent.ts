@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Name} from "../../../models/name";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
+import {ClassTypes} from "../../../models/classType";
 
 @Component({
   selector: 'page-editStudent',
@@ -18,6 +19,7 @@ export class EditStudentPage implements OnInit{
   studentForm: FormGroup;
 
   grades: any = [];
+  classTypes = ClassTypes;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -31,7 +33,7 @@ export class EditStudentPage implements OnInit{
 
     if(this.mode === 'New'){
       const name = new Name('', '');
-      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true);
+      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true, 'Adults');
     }
 
     if(this.mode === 'Edit'){
@@ -46,7 +48,8 @@ export class EditStudentPage implements OnInit{
       'lastname' : new FormControl(this.student.name.lastname, Validators.required),
       'hbid' : new FormControl({value: this.student.hbId, disabled: this.mode === 'Edit'}, Validators.required),
       'pin' : new FormControl({value: this.student.pinNumber, disabled: this.mode === 'New'}),
-      'grade' : new FormControl(this.student.grade, Validators.required)
+      'grade' : new FormControl(this.student.grade, Validators.required),
+      'preferredClass': new FormControl(this.student.preferredClass, Validators.required),
     });
   }
 
@@ -55,6 +58,7 @@ export class EditStudentPage implements OnInit{
     this.student.name.firstname = studentFormValues.firstname;
     this.student.name.lastname = studentFormValues.lastname;
     this.student.grade = studentFormValues.grade;
+    this.student.preferredClass = studentFormValues.preferredClass;
     if(this.mode === 'New'){
       this.student.hbId = studentFormValues.hbid;
       this.createStudent();

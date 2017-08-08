@@ -21,7 +21,7 @@ let el: HTMLElement;
 describe('Page: Edit Student Page', () => {
 
   const name : Name = new Name('Rebekah', 'Apelt');
-  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true);
+  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -70,7 +70,7 @@ describe('Page: Edit Student Page', () => {
     const invalidFirstName = '';
     const invalidlastName = '';
 
-    const updatedStudent = new Student(new Name(validFirstName, validlastName), 'hb030', '0000', 2, true, [], [], true);
+    const updatedStudent = new Student(new Name(validFirstName, validlastName), 'hb030', '0000', 2, true, [], [], true, 'Adults');
 
     // create reusable function for a dry spec.
     function updateForm(firstname, lastname) {

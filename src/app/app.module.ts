@@ -27,6 +27,8 @@ import {SelectClassPage} from "../pages/attendance/selectClass";
 import {ClassAttendancePage} from "../pages/attendance/class-attendance/class-attendance";
 import {AttendanceService} from "../services/attendance.service";
 import {EnvironmentsModule} from "./enviroment/enviroment.module";
+import {SearchStudentPage} from "../pages/search-student/search-student";
+import { AlphabeticalStudentsPipe } from '../pipes/alphabetical-students/alphabetical-students';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import {EnvironmentsModule} from "./enviroment/enviroment.module";
     AddClassesPage,
     SortDatesPipe,
     SelectClassPage,
-    ClassAttendancePage
+    ClassAttendancePage,
+    SearchStudentPage,
+    AlphabeticalStudentsPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import {EnvironmentsModule} from "./enviroment/enviroment.module";
     ClassesPage,
     AddClassesPage,
     SelectClassPage,
-    ClassAttendancePage
+    ClassAttendancePage,
+    SearchStudentPage
   ],
   providers: [
     StatusBar,

@@ -14,28 +14,28 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div padding>
+<ion-content>
+  <div>
     <ion-segment [(ngModel)]="activeStatus">
       <ion-segment-button value="active">
         Active
       </ion-segment-button>
-      <ion-segment-button value="deactive">
-        Deactive
+      <ion-segment-button value="inactive">
+        Inactive
       </ion-segment-button>
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="activeStatus">
+  <div [ngSwitch]="activeStatus" padding>
     <ion-list *ngSwitchCase="'active'">
-      <button ion-item *ngFor="let student of students[0]" [navPush]="viewStudentPage" [navParams]="{ student: student}">
+      <button ion-item *ngFor="let student of students[0] | alphabeticalstudents" [navPush]="viewStudentPage" [navParams]="{ student: student}">
         <span>{{student.name.firstname}} {{student.name.lastname}}</span>
         <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
       </button>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'deactive'">
-      <button ion-item *ngFor="let student of students[1]" [navPush]="viewStudentPage" [navParams]="{ student: student}">
+    <ion-list *ngSwitchCase="'inactive'">
+      <button ion-item *ngFor="let student of students[1] | alphabeticalstudents" [navPush]="viewStudentPage" [navParams]="{ student: student}">
         <span>{{student.name.firstname}} {{student.name.lastname}}</span>
         <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
       </button>
