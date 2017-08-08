@@ -46,7 +46,7 @@
       </ion-item>
     </ion-list>
 
-    <button type="submit" ion-button block>{{mode}} Student</button>
+    <button type="submit" ion-button block [disabled]="studentForm.invalid">{{mode}} Student</button>
 
   </form>
 

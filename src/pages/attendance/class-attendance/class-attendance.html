@@ -51,10 +51,20 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'not-attended'">
-      <button ion-item *ngFor="let student of notAttended | alphabeticalstudents; let i = index" (click)="addStudent(student, i)">
-        <span>{{student.name.firstname}} {{student.name.lastname}}</span>
-        <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
-      </button>
+
+      <ion-item-group>
+        <ion-item-divider color="light">{{aclass.classType}}</ion-item-divider>
+        <button ion-item *ngFor="let student of notAttended | filterbypreferredclasstype: aclass.classType | alphabeticalstudents" (click)="addStudent(student)">
+          <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+          <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
+        </button>
+        <ion-item-divider color="light">{{otherClassType}}</ion-item-divider>
+        <button ion-item *ngFor="let student of notAttended | filterbypreferredclasstype:otherClassType | alphabeticalstudents" (click)="addStudent(student)">
+          <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+          <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
+        </button>
+      </ion-item-group>
+
     </ion-list>
   </div>
 </ion-content>

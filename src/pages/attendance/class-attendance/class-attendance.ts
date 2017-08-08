@@ -25,6 +25,8 @@ export class ClassAttendancePage implements OnInit{
   notAttended: Array<Student>;
 
   attendance = "studentsAttended";
+  
+  otherClassType: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -39,6 +41,8 @@ export class ClassAttendancePage implements OnInit{
   ngOnInit(){
     this.studentService.getAllStudents();
     this.aclass = this.navParams.get('aclass');
+
+    this.otherClassType = this.aclass.classType === 'Adults' ? 'Family' : 'Adults';
 
     this.studentEvents.studentsUpdated.subscribe((students: Array<Student>)=>{
       this.students = students;
@@ -56,10 +60,8 @@ export class ClassAttendancePage implements OnInit{
     this.attendanceService.removeStudentFromAClass(student.hbId, this.aclass.classId);
   }
 
-  addStudent(student, index){
-    this.notAttended.splice(index, 1);
-    this.attended.push(student);
-    this.attendanceService.addStudentToAClass(student.hbId, this.aclass.classId);
+  addStudent(student){
+    this.shouldAddStudent(student);
   }
 
   deleteClass(){
@@ -74,35 +76,39 @@ export class ClassAttendancePage implements OnInit{
     });
 
     popover.onDidDismiss((popoverData: Student) => {
-      console.log(popoverData);
-      if(popoverData == null){
-        return;
-      }
-      let studentIndex = null;
-
-      const notAttended = _.find(this.notAttended, (student, index) =>{
-        if(student.hbId === popoverData.hbId){
-          studentIndex = index;
-          return student;
-        }
-      });
-
-      if(notAttended){
-        this.notAttended.splice(studentIndex, 1);
-      }
-
-      const attendedAlready = _.find(this.attended, (student) =>{
-        if(student.hbId === popoverData.hbId){
-          return student;
-        }
-      });
-
-      if(!attendedAlready){
-        this.attended.push(popoverData);
-      }
-
-      this.attendanceService.addStudentToAClass(popoverData.hbId, this.aclass.classId);
+      this.shouldAddStudent(popoverData)
     })
+  }
+
+  shouldAddStudent(selectedStudent){
+    if(selectedStudent == null){
+      return;
+    }
+    let studentIndex = null;
+
+    const notAttended = _.find(this.notAttended, (student, index) =>{
+      if(student.hbId === selectedStudent.hbId){
+        studentIndex = index;
+        return student;
+      }
+    });
+
+    if(notAttended){
+      this.notAttended.splice(studentIndex, 1);
+      this.notAttended = this.notAttended.slice();
+    }
+
+    const attendedAlready = _.find(this.attended, (student) =>{
+      if(student.hbId === selectedStudent.hbId){
+        return student;
+      }
+    });
+
+    if(!attendedAlready){
+      this.attended.push(selectedStudent);
+    }
+
+    this.attendanceService.addStudentToAClass(selectedStudent.hbId, this.aclass.classId);
   }
 
 }

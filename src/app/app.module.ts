@@ -29,6 +29,7 @@ import {AttendanceService} from "../services/attendance.service";
 import {EnvironmentsModule} from "./enviroment/enviroment.module";
 import {SearchStudentPage} from "../pages/search-student/search-student";
 import { AlphabeticalStudentsPipe } from '../pipes/alphabetical-students/alphabetical-students';
+import { FilterByPreferredClassTypePipe } from '../pipes/filter-by-preferred-class-type/filter-by-preferred-class-type';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AlphabeticalStudentsPipe } from '../pipes/alphabetical-students/alphabe
     SelectClassPage,
     ClassAttendancePage,
     SearchStudentPage,
-    AlphabeticalStudentsPipe
+    AlphabeticalStudentsPipe,
+    FilterByPreferredClassTypePipe
   ],
   imports: [
     BrowserModule,

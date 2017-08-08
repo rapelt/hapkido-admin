@@ -127,7 +127,7 @@ describe('Page: Class Attendance Page', () => {
     classAttendancePage.ngOnInit();
     fixture.detectChanges();
 
-    classAttendancePage.addStudent(rebekah, 0);
+    classAttendancePage.addStudent(rebekah);
     fixture.detectChanges();
 
     expect(spyClass.calls.count()).toEqual(1);

@@ -46,7 +46,7 @@ export class EditStudentPage implements OnInit{
     this.studentForm = new FormGroup({
       'firstname' : new FormControl(this.student.name.firstname, Validators.required),
       'lastname' : new FormControl(this.student.name.lastname, Validators.required),
-      'hbid' : new FormControl({value: this.student.hbId, disabled: this.mode === 'Edit'}, Validators.required),
+      'hbid' : new FormControl({value: this.student.hbId, disabled: this.mode === 'Edit'}, [Validators.required, Validators.pattern(/hb+\d{3}$/)]),
       'pin' : new FormControl({value: this.student.pinNumber, disabled: this.mode === 'New'}),
       'grade' : new FormControl(this.student.grade, Validators.required),
       'preferredClass': new FormControl(this.student.preferredClass, Validators.required),
