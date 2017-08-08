@@ -23,6 +23,7 @@ import {Observable} from "rxjs";
 import {Name} from "../../../models/name";
 import {Student} from "../../../models/student";
 import {AlphabeticalStudentsPipe} from "../../../pipes/alphabetical-students/alphabetical-students";
+import {FilterByPreferredClassTypePipe} from "../../../pipes/filter-by-preferred-class-type/filter-by-preferred-class-type";
 
 let classAttendancePage: ClassAttendancePage;
 let fixture: ComponentFixture<ClassAttendancePage>;
@@ -52,7 +53,7 @@ describe('Page: Class Attendance Page', () => {
     beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [MyApp, ClassAttendancePage, AlphabeticalStudentsPipe],
+      declarations: [MyApp, ClassAttendancePage, AlphabeticalStudentsPipe, FilterByPreferredClassTypePipe],
       providers: [
         NavController,
         {provide: NavParams, useClass: NavParamsMock},
