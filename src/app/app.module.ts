@@ -7,34 +7,37 @@ import { HomePage } from '../pages/home/home';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {StudentsPage} from "../pages/students/students";
-import {StudentData} from "../services/student/student.data";
-import {HttpModule} from "@angular/http";
-import {EditStudentPage} from "../pages/students/editStudent/editStudent";
-import {ViewStudentPage} from "../pages/students/viewStudent/viewStudent";
-import {GradeService} from "../services/grade.service";
-import {StudentEvents} from "../services/student/student.events";
-import {StudentService} from "../services/student/student.service";
-import {ClassesPage} from "../pages/classes/classes";
-import {IonCalendar} from "../components/calendar/calendar";
+import {StudentsPage} from '../pages/students/students';
+import {StudentData} from '../services/student/student.data';
+import {HttpModule} from '@angular/http';
+import {EditStudentPage} from '../pages/students/editStudent/editStudent';
+import {ViewStudentPage} from '../pages/students/viewStudent/viewStudent';
+import {GradeService} from '../services/grade.service';
+import {StudentEvents} from '../services/student/student.events';
+import {StudentService} from '../services/student/student.service';
+import {ClassesPage} from '../pages/classes/classes';
+import {IonCalendar} from '../components/calendar/calendar';
 import { SampleComponent } from '../components/sample/sample';
-import {AddClassesPage} from "../pages/classes/addClasses/addClasses";
-import {ClassService} from "../services/class/class.service";
+import {AddClassesPage} from '../pages/classes/addClasses/addClasses';
+import {ClassService} from '../services/class/class.service';
 import { SortDatesPipe } from '../pipes/sort-dates/sort-dates';
-import {ClassData} from "../services/class/class.data";
-import {ClassEvents} from "../services/class/class.events";
-import {SelectClassPage} from "../pages/attendance/selectClass";
-import {ClassAttendancePage} from "../pages/attendance/class-attendance/class-attendance";
-import {AttendanceService} from "../services/attendance.service";
-import {EnvironmentsModule} from "./enviroment/enviroment.module";
-import {SearchStudentPage} from "../pages/search-student/search-student";
+import {ClassData} from '../services/class/class.data';
+import {ClassEvents} from '../services/class/class.events';
+import {SelectClassPage} from '../pages/attendance/selectClass';
+import {ClassAttendancePage} from '../pages/attendance/class-attendance/class-attendance';
+import {AttendanceService} from '../services/attendance.service';
+import {EnvironmentsModule} from './enviroment/enviroment.module';
+import {SearchStudentPage} from '../pages/search-student/search-student';
 import { AlphabeticalStudentsPipe } from '../pipes/alphabetical-students/alphabetical-students';
 import { FilterByPreferredClassTypePipe } from '../pipes/filter-by-preferred-class-type/filter-by-preferred-class-type';
-import {AuthService} from "../services/auth/auth.service";
+import {AuthService} from '../services/auth/auth.service';
 import {AttendanceComponent} from '../components/attendance/attendance';
 import { SearchStudentComponent } from '../components/search-student/search-student';
 import {ErrorEvents} from '../services/error.events';
 import {ErrorComponent} from '../components/error/error';
+import { ToastComponent } from '../components/toast/toast';
+import {ToastEvents} from '../services/toast.events';
+import { PrioritiseSelectedClassPipe } from '../pipes/prioritise-selected-class/prioritise-selected-class';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import {ErrorComponent} from '../components/error/error';
     FilterByPreferredClassTypePipe,
     AttendanceComponent,
     SearchStudentComponent,
-    ErrorComponent
+    ErrorComponent,
+    ToastComponent,
+    PrioritiseSelectedClassPipe
   ],
   imports: [
     BrowserModule,
@@ -89,7 +94,8 @@ import {ErrorComponent} from '../components/error/error';
     ClassEvents,
     AttendanceService,
     AuthService,
-    ErrorEvents
+    ErrorEvents,
+    ToastEvents
   ]
 })
 export class AppModule {}

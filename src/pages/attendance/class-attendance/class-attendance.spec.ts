@@ -34,16 +34,16 @@ describe('Page: Class Attendance Page', () => {
   let aclass = new Class("126", "", ['hb030', 'hb043'], false, moment(new Date(new Date().setDate(new Date().getDate() - 12))), "");
 
   const name1: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+  const rebekah = new Student(name1, 'hb030', '0000', 2, true, [], [], true, false, 'Adults');
 
   const name2: Name = new Name('mark', 'higgins');
-  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], true, 'Adults');
+  const mark = new Student(name2, 'hb055', '0000', 2, true, [], [], true, false, 'Adults');
 
   const name3: Name = new Name('daniel', 'radcliffe');
-  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], true, 'Adults');
+  const daniel = new Student(name3, 'hb043', '0000', 2, true, [], [], true, false,'Adults');
 
   const name4: Name = new Name('John', 'Geddes');
-  const john = new Student(name4, 'hb044', '0000', 2, true, [], [], false, 'Adults');
+  const john = new Student(name4, 'hb044', '0000', 2, true, [], [], false, false, 'Adults');
 
   let students = [rebekah, mark, daniel, john];
 

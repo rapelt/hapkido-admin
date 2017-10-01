@@ -23,7 +23,7 @@ let el: HTMLElement;
 describe('Page: Students Page', () => {
 
     const name : Name = new Name('Rebekah', 'Apelt');
-    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+    const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, false, 'Adults');
 
     let studentDataMock: StudentDataMock;
 

@@ -36,7 +36,7 @@ export class EditStudentPage implements OnInit{
 
     if(this.mode === 'New'){
       const name = new Name('', '');
-      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true, 'Adults');
+      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true, false, 'Adults');
     }
 
     if(this.mode === 'Edit'){
@@ -53,6 +53,7 @@ export class EditStudentPage implements OnInit{
       'pin' : new FormControl({value: this.student.pinNumber, disabled: this.mode === 'New'}),
       'grade' : new FormControl(this.student.grade, Validators.required),
       'preferredClass': new FormControl(this.student.preferredClass, Validators.required),
+      'isKumdoStudent': new FormControl(this.student.isKumdoStudent, Validators.required),
     });
   }
 
@@ -62,6 +63,7 @@ export class EditStudentPage implements OnInit{
     this.student.name.lastname = studentFormValues.lastname;
     this.student.grade = studentFormValues.grade;
     this.student.preferredClass = studentFormValues.preferredClass;
+    this.student.isKumdoStudent = studentFormValues.isKumdoStudent;
     if(this.mode === 'New'){
       this.student.hbId = studentFormValues.hbid;
       this.createStudent();

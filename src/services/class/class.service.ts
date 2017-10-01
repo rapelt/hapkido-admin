@@ -8,6 +8,7 @@ import {ClassEvents} from './class.events';
 import {EnvVariables} from '../../app/enviroment/enviroment.token';
 import {ErrorEvents} from '../error.events';
 import * as _ from 'underscore';
+import {ToastEvents} from '../toast.events';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class ClassService {
   private interval;
 
   constructor(private classData: ClassData, private classEvents: ClassEvents, @Inject(EnvVariables) public envVariables,
-              private errorEvent: ErrorEvents) {}
+              private errorEvent: ErrorEvents, private toastEvents: ToastEvents) {}
 
   createClass(){
   }
@@ -27,8 +28,10 @@ export class ClassService {
 
   createClasses(newClasses: Array<Class>){
     this.classData.createClasses(newClasses).subscribe(response => {
+      this.toastEvents.updateToast.next("Great work. We have created your new classes");
       this.getAllClasses();
     }, error => {
+      this.errorEvent.updateError.next("Sorry, we could not create any classes at the moment. Please check your internet connection");
       console.log(error);
     });
   }
@@ -62,8 +65,10 @@ export class ClassService {
 
   deleteClass(classId: string){
     this.classData.deleteClass(classId).subscribe(response => {
+      this.toastEvents.updateToast.next("We have deleted your new class");
       this.getAllClasses();
     }, error => {
+      this.errorEvent.updateError.next(JSON.parse(error._body).error);
       console.log(error);
     });
   }
@@ -136,6 +141,7 @@ export class ClassService {
       this.getAllClasses();
     }, error => {
       console.log(error);
+      this.errorEvent.updateError.next(JSON.parse(error._body).error);
     });
   }
 
@@ -144,6 +150,7 @@ export class ClassService {
       this.getAllClasses();
     }, error => {
       console.log(error);
+      this.errorEvent.updateError.next(JSON.parse(error._body).error);
     });
   }
 

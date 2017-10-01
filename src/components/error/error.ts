@@ -9,7 +9,6 @@ import {ToastController} from 'ionic-angular';
 export class ErrorComponent {
 
   constructor(public errorEvents: ErrorEvents, public toastCtrl: ToastController) {
-    console.log("ysys");
     errorEvents.updateError.subscribe((error: string) => {
       this.presentToast(error);
     });
@@ -17,7 +16,6 @@ export class ErrorComponent {
   }
 
   presentToast(errorMessage) {
-    console.log('error');
     let toast = this.toastCtrl.create({
       message: errorMessage,
       duration: 3000,

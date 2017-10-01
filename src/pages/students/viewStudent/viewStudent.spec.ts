@@ -15,7 +15,7 @@ import {ViewStudentPage} from "./viewStudent";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {StudentEvents} from "../../../services/student/student.events";
-import {ActionSheetControllerMock, ActionSheetMock, AlertControllerMock, AlertMock} from "ionic-mocks/src";
+import {ActionSheetControllerMock, ActionSheetMock, AlertControllerMock, AlertMock} from "ionic-mocks";
 import {ClassService} from '../../../services/class/class.service';
 
 let viewStudentPage: ViewStudentPage;
@@ -77,7 +77,7 @@ describe('Page: View Student Page', () => {
 
     describe('Active Student', () =>{
         const name : Name = new Name('Rebekah', 'Apelt');
-        const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+        const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, false, 'Adults');
 
         beforeEach(() => {
             NavParamsMock.setParams("student", rebekah);
@@ -116,7 +116,7 @@ describe('Page: View Student Page', () => {
     describe('Inactive Student', () =>{
 
         const name2 : Name = new Name('Daniel', 'Blarg');
-        const daniel = new Student(name2, 'hb031', '0000', 2, true, [], [], false, 'Adults');
+        const daniel = new Student(name2, 'hb031', '0000', 2, true, [], [], false, false, 'Adults');
 
         beforeEach(() => {
             NavParamsMock.setParams("student", daniel);

@@ -15,31 +15,31 @@ export class StudentData {
     }
 
     getStudent(hbid: string): Observable<Student> {
-        return this.http.get(this.userUrl + hbid).map((response: Response) => response.json());
+        return this.http.get(this.userUrl + hbid).map((response: Response) => response.json()).share();
     }
 
     getAllStudents(): Observable<Student []> {
-        return this.http.get(this.userUrl + "all").map((response: Response) => response.json());
+        return this.http.get(this.userUrl + "all").map((response: Response) => response.json()).share();
     }
 
     createStudent(student: Student): Observable<Student> {
-        return this.http.post(this.userUrl + "create", student, this.getHeaders()).map((response: Response) => response.json());
+        return this.http.post(this.userUrl + "create", student, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
     updateStudent(student: Student): Observable<Student> {
-        return this.http.post(this.userUrl + "update/" + student.hbId, student, this.getHeaders()).map((response: Response) => response.json());
+        return this.http.post(this.userUrl + "update/" + student.hbId, student, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
     deleteStudent(hbid: string): Observable<Student> {
-        return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json());
+        return this.http.post(this.userUrl + "delete/" + hbid, null, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
     deactivateStudent(hbId: string): Observable<Student> {
-        return this.http.post(this.userUrl + "deactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json());
+        return this.http.post(this.userUrl + "deactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
     reactivateStudent(hbId: string): Observable<Student> {
-        return this.http.post(this.userUrl + "reactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json());
+        return this.http.post(this.userUrl + "reactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
     getHeaders() {

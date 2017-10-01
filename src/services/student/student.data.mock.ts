@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Name} from "../../models/name";
 export class StudentDataMock {
 
-    static students: Student[] = [new Student(new Name('rebekah', 'apelt'), 'hb030', '0000', 2, true, [], [], true, 'Adults'), new Student(new Name('mark', 'higgins'), 'hb031', '0000', 2, true, [], [], false, 'Adults')];
+    static students: Student[] = [new Student(new Name('rebekah', 'apelt'), 'hb030', '0000', 2, true, [], [], true, false, 'Adults'), new Student(new Name('mark', 'higgins'), 'hb031', '0000', 2, true, [], [], false, false, 'Adults')];
     userUrl: string = 'http://localhost/dev/student/';
 
     getStudent(hbid: string): Observable<Student> {

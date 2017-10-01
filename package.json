@@ -59,7 +59,7 @@
         "@ionic/cli-plugin-ionic-angular": "1.4.1",
         "@types/jasmine": "^2.5.53",
         "@types/node": "^8.0.14",
-        "angular-cli": "^1.0.0-beta.28.3",
+        "@angular/cli" : "^1.4.4",
         "codecov": "^2.2.0",
         "ionic": "3.12.0",
         "ionic-mocks": "^0.10.1",

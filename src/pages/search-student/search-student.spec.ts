@@ -4,10 +4,10 @@ import {IonicModule, NavController, NavParams, ViewController} from 'ionic-angul
 import { MyApp } from '../../app/app.component';
 import {SearchStudentPage} from "./search-student";
 import {AlphabeticalStudentsPipe} from "../../pipes/alphabetical-students/alphabetical-students";
-import {ViewControllerMock} from "ionic-mocks/src";
 import {NavParamsMock} from "../../testHelperMethods/NavParamsMock";
 import {Student} from "../../models/student";
 import {Name} from "../../models/name";
+import {ViewControllerMock} from 'ionic-mocks';
 
 let searchStudentPage: SearchStudentPage;
 let fixture: ComponentFixture<SearchStudentPage>;
@@ -16,16 +16,16 @@ let el: HTMLElement;
 
 describe('Page: Search Student Page', () => {
   const name : Name = new Name('Rebekah', 'Apelt');
-  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, false, 'Adults');
 
   const name2 : Name = new Name('Mark', 'Higgins');
-  const mark = new Student(name2, 'hb031', '0000', 2, true, [], [], true, 'Adults');
+  const mark = new Student(name2, 'hb031', '0000', 2, true, [], [], true, false, 'Adults');
 
   const name3 : Name = new Name('Daniel', 'Blarg');
-  const daniel = new Student(name3, 'hb032', '0000', 2, true, [], [], true, 'Adults');
+  const daniel = new Student(name3, 'hb032', '0000', 2, true, [], [], true, false, 'Adults');
 
   const name4 : Name = new Name('John', 'Geddes');
-  const john = new Student(name4, 'hb033', '0000', 2, true, [], [], true, 'Adults');
+  const john = new Student(name4, 'hb033', '0000', 2, true, [], [], true, false, 'Adults');
 
   const students: Student[] = [rebekah, mark, daniel, john];
 

@@ -12,6 +12,7 @@ export class Student {
         public gradingDates: GradingDates [],
         public feedback: Feedback [],
         public isActive: boolean,
+        public isKumdoStudent: boolean,
         public preferredClass: string
     ){}
 }

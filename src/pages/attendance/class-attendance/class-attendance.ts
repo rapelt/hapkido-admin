@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertController, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Class} from '../../../models/class';
+import {ClassTypes} from '../../../models/classType';
+
 import {StudentService} from '../../../services/student/student.service';
 import {StudentEvents} from '../../../services/student/student.events';
 import {Student} from '../../../models/student';
@@ -27,8 +29,8 @@ export class ClassAttendancePage implements OnInit{
   notAttended: Array<Student>;
 
   attendance = 'studentsAttended';
-  
-  otherClassType: string;
+
+  classTypes = ClassTypes;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -44,8 +46,6 @@ export class ClassAttendancePage implements OnInit{
   ngOnInit(){
     this.studentService.getAllStudents();
     this.aclass = this.navParams.get('aclass');
-
-    this.otherClassType = this.aclass.classType === 'Adults' ? 'Family' : 'Adults';
 
     this.studentEvents.studentsUpdated.subscribe((students: Array<Student>)=>{
       this.students = students;

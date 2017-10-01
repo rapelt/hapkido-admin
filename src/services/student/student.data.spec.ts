@@ -25,7 +25,7 @@ describe('Student Data', () => {
   });
 
   const name: Name = new Name('rebekah', 'apelt');
-  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, 'Adults');
+  const rebekah = new Student(name, 'hb030', '0000', 2, true, [], [], true, false, 'Adults');
 
   it('getStudent should return an Observable<Student>',
     inject([StudentData, XHRBackend], (studentData, mockBackend) => {
