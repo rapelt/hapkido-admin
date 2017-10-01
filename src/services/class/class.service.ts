@@ -1,16 +1,22 @@
-import {Student} from "../../models/student";
-import {Injectable} from "@angular/core";
-import {Class} from "../../models/class";
-import {Moment} from "moment";
+import {Student} from '../../models/student';
+import {Injectable, Inject} from '@angular/core';
+import {Class} from '../../models/class';
+import {Moment} from 'moment';
 import * as moment from 'moment';
-import {ClassData} from "./class.data";
-import {ClassEvents} from "./class.events";
+import {ClassData} from './class.data';
+import {ClassEvents} from './class.events';
+import {EnvVariables} from '../../app/enviroment/enviroment.token';
+import {ErrorEvents} from '../error.events';
+import * as _ from 'underscore';
+
 
 @Injectable()
 export class ClassService {
   private classes: Class[] = [];
+  private interval;
 
-  constructor(private classData: ClassData, private classEvents: ClassEvents) {}
+  constructor(private classData: ClassData, private classEvents: ClassEvents, @Inject(EnvVariables) public envVariables,
+              private errorEvent: ErrorEvents) {}
 
   createClass(){
   }
@@ -39,6 +45,18 @@ export class ClassService {
     });
   }
 
+  getTodaysClasses(){
+    this.classData.getTodaysClasses().subscribe((todaysClasses: Class []) => {
+      todaysClasses.forEach((aclass)=>{
+        aclass.date = moment(aclass.date);
+      });
+      this.classEvents.todaysClassesUpdated.next(this.sortClasses(todaysClasses));
+    }, (error) => {
+      console.log(error);
+      this.errorEvent.updateError.next('Can not connect to server. Please check the internet connection.');
+    });
+  }
+
   getClass(){
   }
 
@@ -58,6 +76,18 @@ export class ClassService {
       if (moment(a.date).isBefore(b.date)) {
         return -1;
       } else if (moment(a.date).isAfter(b.date)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  sortClassesReverse(classes: Array<Class>) {
+    return classes.sort((a, b) => {
+      if (moment(a.date).isAfter(b.date)) {
+        return -1;
+      } else if (moment(a.date).isBefore(b.date)) {
         return 1;
       } else {
         return 0;
@@ -115,5 +145,29 @@ export class ClassService {
     }, error => {
       console.log(error);
     });
+  }
+
+  getLastClassAStudentHasAttended(studentId): Moment{
+    const classes = this.sortClassesReverse(this.classes);
+
+    var theLastClass = _.find(classes, (aclass: Class) =>{
+      return _.contains(aclass.attendance, studentId)
+    });
+    if(theLastClass){
+      return theLastClass.date;
+    }
+
+    return null;
+
+  }
+
+  repeat(){
+    this.interval = setInterval(() =>{
+      this.getTodaysClasses();
+    }, this.envVariables.getClassTime);
+  }
+
+  clearInterval(){
+    clearInterval(this.interval);
   }
 }

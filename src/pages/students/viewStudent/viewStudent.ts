@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActionSheetController, AlertController, NavController, NavParams} from 'ionic-angular';
-import {Student} from "../../../models/student";
-import {EditStudentPage} from "../editStudent/editStudent";
-import {GradeService} from "../../../services/grade.service";
-import {StudentService} from "../../../services/student/student.service";
+import {Student} from '../../../models/student';
+import {EditStudentPage} from '../editStudent/editStudent';
+import {GradeService} from '../../../services/grade.service';
+import {StudentService} from '../../../services/student/student.service';
+import * as moment from 'moment';
+import {ClassService} from '../../../services/class/class.service';
 
 @Component({
   selector: 'page-viewStudent',
@@ -17,11 +19,26 @@ export class ViewStudentPage implements OnInit{
               public actionSheetCtrl: ActionSheetController,
               public alertCtrl: AlertController,
               public gradeService: GradeService,
-              public studentService: StudentService) {
+              public studentService: StudentService,
+              public classService: ClassService) {
   }
 
   ngOnInit(){
-      this.student = this.navParams.get("student");
+      this.student = this.navParams.get('student');
+  }
+
+  studentHasMissedToManyClasses(): boolean {
+    if(this.student.hbId){
+      if (this.classService.getLastClassAStudentHasAttended(this.student.hbId)) {
+        if (this.classService.getLastClassAStudentHasAttended(this.student.hbId).isBefore(moment().subtract(4, 'weeks'))) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    return false;
+
   }
 
   presentActionSheet() {
@@ -31,7 +48,7 @@ export class ViewStudentPage implements OnInit{
         buttons: [
           {
             text: 'Deactivate',
-            role: "destructive",
+            role: 'destructive',
             handler: () => {
               this.presentConfirmDeactivate();
             }
@@ -54,7 +71,7 @@ export class ViewStudentPage implements OnInit{
         buttons: [
           {
             text: 'Reactivate',
-            role: "destructive",
+            role: 'destructive',
             handler: () => {
               this.presentConfirmReactivate();
             }

@@ -18,6 +18,10 @@ export class ClassData {
     return this.http.get(this.userUrl + classId).map((response: Response) => response.json());
   }
 
+  getTodaysClasses(): Observable<Class []> {
+    return this.http.get(this.userUrl + "todaysclasses").map((response: Response) => response.json());
+  }
+
   getAllClasses(): Observable<Class []> {
     return this.http.get(this.userUrl + "all").map((response: Response) => response.json());
   }

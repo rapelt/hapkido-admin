@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import {LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Student} from "../../../models/student";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Name} from "../../../models/name";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {ClassTypes} from "../../../models/classType";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'page-editStudent',
@@ -25,7 +26,9 @@ export class EditStudentPage implements OnInit{
               public navParams: NavParams,
               public toastCtrl: ToastController,
               public studentService: StudentService,
-              public gradeService: GradeService) {}
+              public gradeService: GradeService,
+              public authService: AuthService,
+              private loadingCtrl: LoadingController) {}
 
   ngOnInit(){
     this.grades = this.gradeService.getAllGrades();
@@ -73,6 +76,19 @@ export class EditStudentPage implements OnInit{
   }
 
   createStudent() {
+    const loading = this.loadingCtrl.create({
+      content: 'Signing ' + this.student.name.firstname + ' up...'
+    });
+
+    this.authService.signup(this.student.hbId, this.student.pinNumber)
+      .then(data => {
+        console.log(data)
+        loading.dismiss();
+      })
+      .catch(error => {
+        console.log(error)
+        loading.dismiss();
+      });
     this.studentService.createStudent(this.student);
   }
 

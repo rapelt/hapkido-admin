@@ -7,9 +7,7 @@
     <ion-title>Students</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only [navPush]="editStudentPage" [navParams]="{ mode: 'New'}">
-        <ion-icon name="add"></ion-icon>
-      </button>
+      <search-student [students]="allStudents" (selectedStudent)="searchedStudent($event)"></search-student>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -29,8 +27,9 @@
   <div [ngSwitch]="activeStatus" padding>
     <ion-list *ngSwitchCase="'active'">
       <button ion-item *ngFor="let student of students[0] | alphabeticalstudents" [navPush]="viewStudentPage" [navParams]="{ student: student}">
+        <ion-icon color="danger" name="alert" *ngIf="studentHasMissedToManyClasses(student)"></ion-icon>
         <span>{{student.name.firstname}} {{student.name.lastname}}</span>
-        <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
+        <span item-end> {{gradeService.getShortDisplayName(student.grade)}}</span>
       </button>
     </ion-list>
 
@@ -41,4 +40,8 @@
       </button>
     </ion-list>
   </div>
+
+  <ion-fab bottom right>
+    <button ion-fab color="primary" [navPush]="editStudentPage" [navParams]="{ mode: 'New'}"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

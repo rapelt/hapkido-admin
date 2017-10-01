@@ -234,7 +234,7 @@ export class IonCalendar implements AfterContentInit, ControlValueAccessor, OnIn
   isInSelectedValues(date) {
     let selectedIndex:number = null;
     this.selectedValues.forEach((item, index) => {
-      if(item === date){
+      if(moment(item).isSame(date, 'day')){
         selectedIndex = index;
       }
     });

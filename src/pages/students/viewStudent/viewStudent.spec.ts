@@ -16,6 +16,7 @@ import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {StudentEvents} from "../../../services/student/student.events";
 import {ActionSheetControllerMock, ActionSheetMock, AlertControllerMock, AlertMock} from "ionic-mocks/src";
+import {ClassService} from '../../../services/class/class.service';
 
 let viewStudentPage: ViewStudentPage;
 let fixture: ComponentFixture<ViewStudentPage>;
@@ -46,6 +47,7 @@ describe('Page: View Student Page', () => {
                 GradeService,
                 StudentService,
                 StudentEvents,
+                ClassService
             ],
             imports: [
                 IonicModule.forRoot(MyApp),

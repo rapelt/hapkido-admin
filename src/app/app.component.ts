@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import {StudentsPage} from "../pages/students/students";
 import {ClassesPage} from "../pages/classes/classes";
 import {SelectClassPage} from "../pages/attendance/selectClass";
+import firebase from 'firebase';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,9 +20,12 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDejeeCDRpDwDi3gCqHUDqjeIF-8dbJKFo",
+      authDomain: "hapkido-signin.firebaseapp.com"
+    });
+
     this.initializeApp();
-
-
 
     // used for an example of ngFor and navigation
     this.pages = [

@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-title>View {{student.name.firstname}} {{student.name.lastname}}</ion-title>
+    <ion-title>View {{student.name.firstname}} {{student.name.lastname}} </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
   <ion-card>
     <ion-card-content>
       <ion-card-title>
-        General Information
+        General Information <ion-icon color="danger" name="alert" *ngIf="studentHasMissedToManyClasses()"></ion-icon>
       </ion-card-title>
       <p>Grade: {{gradeService.getLongDisplayName(student.grade)}}</p>
       <p>HB ID: {{student.hbId}}</p>

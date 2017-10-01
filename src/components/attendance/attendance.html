@@ -1,0 +1,8 @@
+<!-- Generated template for the AttendanceComponent component -->
+<div>
+  <div class="class-attendance-container" *ngFor="let aclass of todaysClasses">
+    <p class="type"> {{aclass.classType}}</p>
+    <p class="time">{{aclass.date.format('h:mm a')}}</p>
+    <p class="attendance">{{aclass.attendance.length}}</p>
+  </div>
+</div>

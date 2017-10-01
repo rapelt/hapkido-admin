@@ -10,9 +10,8 @@
     <ion-title>{{aclass?.date.format('ddd, DD/MM')}} {{aclass?.classType}} </ion-title>
 
     <ion-buttons end>
-      <button class="student-search-popover" ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
+
+      <search-student [students]="students" (selectedStudent)="searchedStudent($event)"></search-student>
 
       <!--<button ion-button icon-only (click)="deleteClass()">
         <ion-icon name="trash"></ion-icon>

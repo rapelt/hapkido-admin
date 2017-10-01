@@ -6,6 +6,7 @@ import {EventsMock, ActionSheetControllerMock, NavControllerMock, ActionSheetMoc
 import {ViewStudentPage} from "./viewStudent";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
+import {ClassService} from '../../../services/class/class.service';
 
 xdescribe('ViewStudent Action Sheet Tests', () => {
 
@@ -16,6 +17,8 @@ xdescribe('ViewStudent Action Sheet Tests', () => {
   let navParams: NavParams;
   let gradeService: GradeService;
   let studentService: StudentService;
+  let classService: ClassService;
+
   let actionSheetMock: ActionSheet;
   let alertMock: Alert;
 
@@ -31,7 +34,7 @@ xdescribe('ViewStudent Action Sheet Tests', () => {
     alertMock = AlertMock.instance();
     alertController = AlertControllerMock.instance(alertMock);
 
-    viewStudentPage = new ViewStudentPage(navController, navParams, actionSheetController, alertController, gradeService, studentService);
+    viewStudentPage = new ViewStudentPage(navController, navParams, actionSheetController, alertController, gradeService, studentService, classService);
   });
 
   it('should call alert create', () => {

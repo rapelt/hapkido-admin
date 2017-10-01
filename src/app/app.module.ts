@@ -30,6 +30,11 @@ import {EnvironmentsModule} from "./enviroment/enviroment.module";
 import {SearchStudentPage} from "../pages/search-student/search-student";
 import { AlphabeticalStudentsPipe } from '../pipes/alphabetical-students/alphabetical-students';
 import { FilterByPreferredClassTypePipe } from '../pipes/filter-by-preferred-class-type/filter-by-preferred-class-type';
+import {AuthService} from "../services/auth/auth.service";
+import {AttendanceComponent} from '../components/attendance/attendance';
+import { SearchStudentComponent } from '../components/search-student/search-student';
+import {ErrorEvents} from '../services/error.events';
+import {ErrorComponent} from '../components/error/error';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,10 @@ import { FilterByPreferredClassTypePipe } from '../pipes/filter-by-preferred-cla
     ClassAttendancePage,
     SearchStudentPage,
     AlphabeticalStudentsPipe,
-    FilterByPreferredClassTypePipe
+    FilterByPreferredClassTypePipe,
+    AttendanceComponent,
+    SearchStudentComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +87,9 @@ import { FilterByPreferredClassTypePipe } from '../pipes/filter-by-preferred-cla
     ClassService,
     ClassData,
     ClassEvents,
-    AttendanceService
+    AttendanceService,
+    AuthService,
+    ErrorEvents
   ]
 })
 export class AppModule {}
