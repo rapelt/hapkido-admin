@@ -1,0 +1,6 @@
+<!-- Generated template for the StudentListComponent component -->
+<button ion-item *ngFor="let student of studentList | alphabeticalstudents; let i = index" (click)="onClick(student, i)">
+  <ion-icon color="danger" name="alert" *ngIf="shouldDisplayClassesMissed && student.hasMissedToManyClasses" ></ion-icon>
+  <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+  <span item-end> <grade-badge [grade]="student.grade"></grade-badge></span>
+</button>

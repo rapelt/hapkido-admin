@@ -6,6 +6,19 @@ import { MyApp } from '../../app/app.component';
 import {HomePage} from "./home";
 import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
 import {EnvVariables} from "../../app/enviroment/enviroment.token";
+import {ErrorComponent} from '../../components/error/error';
+import {ToastEvents} from '../../services/toast.events';
+import {ToastComponent} from '../../components/toast/toast';
+import {AttendanceComponent} from '../../components/attendance/attendance';
+import {ClassService} from '../../services/class/class.service';
+import {StudentService} from '../../services/student/student.service';
+import {StudentData} from '../../services/student/student.data';
+import {ClassData} from '../../services/class/class.data';
+import {StudentDataMock} from '../../services/student/student.data.mock';
+import {ClassDataMock} from '../../services/class/class.data.mock';
+import {ClassEvents} from '../../services/class/class.events';
+import {ErrorEvents} from '../../services/error.events';
+import {StudentEvents} from '../../services/student/student.events';
 
 let comp: HomePage;
 let fixture: ComponentFixture<HomePage>;
@@ -16,9 +29,17 @@ describe('Page: Home Page', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyApp, HomePage],
+            declarations: [MyApp, HomePage, ErrorComponent, ToastComponent, AttendanceComponent],
             providers: [
-                NavController
+              {provide: StudentData, useClass: StudentDataMock},
+              {provide: ClassData, useClass: ClassDataMock},
+                NavController,
+                ClassService,
+                StudentService,
+              ClassEvents,
+              ErrorEvents,
+              ToastEvents,
+              StudentEvents
             ],
             imports: [
                 IonicModule.forRoot(MyApp),

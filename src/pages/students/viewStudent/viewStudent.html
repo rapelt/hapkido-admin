@@ -10,31 +10,53 @@
 
 <ion-content padding>
   <ion-card>
+    <ion-card-header>
+      <ion-item>
+        General Information
+      </ion-item>
+    </ion-card-header>
     <ion-card-content>
-      <ion-card-title>
-        General Information <ion-icon color="danger" name="alert" *ngIf="studentHasMissedToManyClasses()"></ion-icon>
-      </ion-card-title>
-      <p>Grade: {{gradeService.getLongDisplayName(student.grade)}}</p>
+      <p>Grade: <grade-badge [longName]="true" [grade]="student.grade"></grade-badge>
       <p>HB ID: {{student.hbId}}</p>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
-    <ion-card-content>
-      <ion-card-title>
+    <ion-card-header>
+      <ion-item>
         Dates
-      </ion-card-title>
-      <p>Last Class: Never</p>
-      <p>Last Grading: Never</p>
+<!--
+        <button ion-button outline item-end color="orange">View more</button>
+-->
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="joiningDate">Joining Date: {{joiningDate.format('DD MMM YY')}}</p>
+      <p *ngIf="lastClassStudentAttended">Last Class: {{lastClassStudentAttended.format('DD MMM YY')}} <ion-icon color="danger" name="alert" *ngIf="studentHasMissedToManyClasses()"></ion-icon></p>
+      <p *ngIf="lastGradingDate">Last Grading: {{lastGradingDate.format('DD MMM YY')}}</p>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
-    <ion-card-content>
-      <ion-card-title>
+    <ion-card-header>
+      <ion-item>
         Feedback
-      </ion-card-title>
-      <p>This is the last feedback we provided</p>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <p>None yet</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="student.isKumdoStudent !== undefined && student.isKumdoStudent">
+    <ion-card-header>
+      <ion-item>
+        Kumdo
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+
+      <p>Last Grading Date: Never</p>
     </ion-card-content>
   </ion-card>
 

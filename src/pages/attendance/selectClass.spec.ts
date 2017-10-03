@@ -13,12 +13,15 @@ import {IonCalendar} from "../../components/calendar/calendar";
 import {Observable} from "rxjs";
 import {Class} from "../../models/class";
 import * as moment from "moment";
+import {EnvironmentsModule} from '../../app/enviroment/enviroment.module';
+import {ToastEvents} from '../../services/toast.events';
+import {ErrorEvents} from '../../services/error.events';
 let selectClassPage: SelectClassPage;
 let fixture: ComponentFixture<SelectClassPage>;
 let de: DebugElement;
 let el: HTMLElement;
 
-describe('Page: Edit Student Page', () => {
+describe('Page: Select Class', () => {
 
   let aclass = new Class("126", "", ['hb030', 'hb043'], false, moment(new Date(new Date().setDate(new Date().getDate() - 12))), "");
 
@@ -34,11 +37,14 @@ describe('Page: Edit Student Page', () => {
         Http,
         ConnectionBackend,
         ClassService,
-        ClassEvents
+        ClassEvents,
+        ErrorEvents,
+        ToastEvents
       ],
       imports: [
         IonicModule.forRoot(MyApp),
-        HttpModule
+        HttpModule,
+        EnvironmentsModule
       ]
     }).compileComponents();
   }));

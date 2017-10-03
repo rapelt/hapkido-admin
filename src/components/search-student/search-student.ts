@@ -21,7 +21,7 @@ export class SearchStudentComponent {
   students: Array<Student>;
 
   @Output()
-  selectedStudent: EventEmitter<Student> = new EventEmitter();
+  selectedStudent: EventEmitter<any> = new EventEmitter();
 
   constructor(private popoverCtrl: PopoverController,) {
   }
@@ -32,8 +32,10 @@ export class SearchStudentComponent {
       ev: event
     });
 
-    popover.onDidDismiss((popoverData: Student) => {
-      this.selectedStudent.emit(popoverData)
+    popover.onDidDismiss((popoverData: any) => {
+      if(popoverData){
+        this.selectedStudent.emit(popoverData)
+      }
     })
   }
 

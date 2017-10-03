@@ -7,7 +7,8 @@ import {StudentEvents} from '../../services/student/student.events';
 import {Student} from '../../models/student';
 import {NavController} from 'ionic-angular';
 import {ClassService} from '../../services/class/class.service';
-import * as moment from 'moment';
+import * as _ from 'underscore';
+
 
 
 @Component({
@@ -17,7 +18,7 @@ import * as moment from 'moment';
 export class StudentsPage implements OnInit{
   students: any = [[], []];
 
-  allStudents: Array<Student>;
+  allStudents: Array<any>;
 
   editStudentPage: any = EditStudentPage;
   viewStudentPage: any = ViewStudentPage;
@@ -36,22 +37,14 @@ export class StudentsPage implements OnInit{
 
     this.studentEvent.studentsUpdated.subscribe((students: Array<Student>) => {
       this.allStudents = students;
+      this.allStudents = _.each(this.allStudents, (student: any)=>{
+        student.hasMissedToManyClasses =  this.classService.studentHasMissedToManyClasses(student);
+      });
       this.students = this.studentService.getStudentsActiveState(students);
     });
   }
 
-  searchedStudent(event){
-    console.log(event);
-    this.navCtrl.push(this.viewStudentPage, {student: event});
-  }
-
-  studentHasMissedToManyClasses(student): boolean {
-    if (this.classService.getLastClassAStudentHasAttended(student.hbId)) {
-      if (this.classService.getLastClassAStudentHasAttended(student.hbId).isBefore(moment().subtract(4, 'weeks'))) {
-        return true;
-      }
-      return false;
-    }
-    return false;
+  studentSelected(event){
+    this.navCtrl.push(this.viewStudentPage, {student: event['student']});
   }
 }

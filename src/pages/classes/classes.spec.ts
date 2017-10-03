@@ -14,6 +14,9 @@ import {Observable} from "rxjs";
 import {Class} from "../../models/class";
 import * as moment from "moment";
 import {tick} from "@angular/core/testing";
+import {EnvironmentsModule} from '../../app/enviroment/enviroment.module';
+import {ErrorEvents} from '../../services/error.events';
+import {ToastEvents} from '../../services/toast.events';
 
 let classesPage: ClassesPage;
 let fixture: ComponentFixture<ClassesPage>;
@@ -33,11 +36,14 @@ describe('Page: Classes Page', () => {
         Http,
         ClassService,
         ClassEvents,
-        ConnectionBackend
+        ConnectionBackend,
+        ErrorEvents,
+        ToastEvents
       ],
       imports: [
         IonicModule.forRoot(MyApp),
-        HttpModule
+        HttpModule,
+        EnvironmentsModule
       ]
     }).compileComponents();
   }));

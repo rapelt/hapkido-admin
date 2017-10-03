@@ -15,13 +15,16 @@ import {ClassEvents} from "./class/class.events";
 import {AttendanceService} from "./attendance.service";
 import {Name} from "../models/name";
 import {Student} from "../models/student";
+import {ToastEvents} from './toast.events';
+import {ErrorEvents} from './error.events';
+import {EnvironmentsModule} from '../app/enviroment/enviroment.module';
 
-describe('Student Service', () => {
+describe('Attendance Service', () => {
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, EnvironmentsModule],
       providers: [
         StudentService,
         AttendanceService,
@@ -31,6 +34,8 @@ describe('Student Service', () => {
         StudentEvents,
         ClassEvents,
         {provide: XHRBackend, useClass: MockBackend},
+        ToastEvents,
+        ErrorEvents
       ]
     });
   });

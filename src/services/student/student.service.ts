@@ -5,6 +5,7 @@ import {StudentEvents} from "./student.events";
 import * as _ from "underscore";
 import {ToastEvents} from '../toast.events';
 import {ErrorEvents} from '../error.events';
+import * as moment from 'moment';
 
 @Injectable()
 export class StudentService {
@@ -78,6 +79,24 @@ export class StudentService {
     });
   }
 
+  addGrading(hbId: string, grading: any){
+    this.studentData.addGrading(hbId, grading).subscribe(response => {
+      this.getAllStudents();
+    }, error => {
+      console.log(error);
+      this.errorEvents.updateError.next(JSON.parse(error._body).error);
+    });
+  }
+
+  removeGrading(hbId: string, grading: any){
+    this.studentData.removeGrading(hbId, grading).subscribe(response => {
+      this.getAllStudents();
+    }, error => {
+      console.log(error);
+      this.errorEvents.updateError.next(JSON.parse(error._body).error);
+    });
+  }
+
   getStudentsActiveState(studentList){
     let active: any;
 
@@ -88,4 +107,34 @@ export class StudentService {
     return active;
   }
 
+  getStudentById(hbid): Student{
+    let astudent = _.find(this.students, (student)=>{
+      if(student.hbId === hbid){
+        return true;
+      }
+    });
+
+    return astudent;
+  }
+
+  getAnArrayOfStudentsById(idArray): Array<Student>{
+    let students: Array<Student> = [];
+
+    _.each(idArray, (id) =>{
+      students.push(this.getStudentById(id));
+    });
+
+    return students;
+  }
+
+  getLastGrading(student) {
+    if(student.gradingDates[student.gradingDates.length -1].grade === 0){
+      return null;
+    }
+    return moment(student.gradingDates[student.gradingDates.length -1].date);
+  }
+
+  getJoiningDate(student) {
+    return moment(student.gradingDates[0].date);
+  }
 }

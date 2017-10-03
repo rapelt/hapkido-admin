@@ -1,0 +1,57 @@
+<!--
+  Generated template for the GradingAttendancePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Grading {{aclass?.date.format('ddd, DD/MM')}} {{aclass?.classType}} </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+
+  <div padding>
+    <h3 text-center>Swipe for grading options</h3>
+
+    <ion-list>
+      <ion-item-sliding #slidingItem *ngFor="let student of studentsInClass">
+        <ion-item>
+          <span>{{student.name.firstname}} {{student.name.lastname}}</span>
+          <span item-end>
+            <span *ngIf="student.didGrade">
+              <grade-badge [grade]="student.gradeBeforeGrading"></grade-badge>
+              <span class="grade-to" *ngIf="student.didGrade"><ion-icon name="arrow-round-forward"></ion-icon>
+                <grade-badge [grade]="student.gradeAfterGrading"></grade-badge>
+              </span>
+            </span>
+
+            <span *ngIf="!student.didGrade">
+              <grade-badge [grade]="student.gradeBeforeGrading"></grade-badge>
+            </span>
+
+          </span>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="dark" (click)="none(student, slidingItem)">
+            <ion-icon name="none"></ion-icon>
+            None
+          </button>
+          <button ion-button color="secondary" (click)="single(student, slidingItem)">
+            <ion-icon name="single"></ion-icon>
+            Single
+          </button>
+          <button ion-button color="primary" (click)="double(student, slidingItem)">
+            <ion-icon name="double"></ion-icon>
+            Double
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

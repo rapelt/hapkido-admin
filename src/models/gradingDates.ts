@@ -1,6 +1,7 @@
+import {Moment} from 'moment';
 export class GradingDates {
     constructor(
-        public classId: number,
+        public date: Moment,
         public grade: number
     ){}
 }

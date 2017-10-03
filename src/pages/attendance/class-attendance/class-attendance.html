@@ -39,10 +39,11 @@
   <div [ngSwitch]="attendance" padding>
     <ion-list *ngSwitchCase="'studentsAttended'">
       <div *ngIf="attended?.length > 0">
-        <button ion-item *ngFor="let student of attended | alphabeticalstudents; let i = index" (click)="removeStudent(student, i)">
+        <!--<button ion-item *ngFor="let student of attended | alphabeticalstudents; let i = index" (click)="removeStudent(student, i)">
           <span>{{student.name.firstname}} {{student.name.lastname}}</span>
           <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
-        </button>
+        </button>-->
+        <student-list [studentList]="attended" [shouldDisplayClassesMissed]="false" (studentSelected)="removeStudent($event)"></student-list>
       </div>
       <div *ngIf="attended?.length == 0">
         <ion-item>No students yet</ion-item>
@@ -55,7 +56,7 @@
         <ion-item-divider color="light">{{classType}}</ion-item-divider>
         <button ion-item *ngFor="let student of notAttended | filterbypreferredclasstype: classType | alphabeticalstudents" (click)="addStudent(student)">
           <span>{{student.name.firstname}} {{student.name.lastname}}</span>
-          <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
+          <span item-end> <grade-badge [grade]="student.grade"></grade-badge></span>
         </button>
       </ion-item-group>
 

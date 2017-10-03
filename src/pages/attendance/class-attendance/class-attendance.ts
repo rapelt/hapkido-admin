@@ -8,11 +8,9 @@ import {StudentEvents} from '../../../services/student/student.events';
 import {Student} from '../../../models/student';
 import {AttendanceService} from '../../../services/attendance.service';
 import {ClassService} from '../../../services/class/class.service';
-import {SearchStudentPage} from '../../search-student/search-student';
 import * as _ from 'underscore';
 import {GradeService} from '../../../services/grade.service';
 import * as moment from 'moment';
-import {ErrorEvents} from '../../../services/error.events';
 
 @Component({
   selector: 'page-class-attendance',
@@ -84,10 +82,10 @@ export class ClassAttendancePage implements OnInit{
     alert.present();
   }
 
-  removeStudent(student, index){
-    this.attended.splice(index, 1);
-    this.notAttended.push(student);
-    this.attendanceService.removeStudentFromAClass(student.hbId, this.aclass.classId);
+  removeStudent(event){
+    this.attended.splice(event['i'], 1);
+    this.notAttended.push(event['student']);
+    this.attendanceService.removeStudentFromAClass(event['student'].hbId, this.aclass.classId);
   }
 
   addStudent(student){

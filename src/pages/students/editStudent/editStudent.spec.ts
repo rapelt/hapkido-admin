@@ -10,6 +10,10 @@ import {StudentDataMock} from "../../../services/student/student.data.mock";
 import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {StudentEvents} from "../../../services/student/student.events";
+import {EnvironmentsModule} from '../../../app/enviroment/enviroment.module';
+import {ErrorEvents} from '../../../services/error.events';
+import {ToastEvents} from '../../../services/toast.events';
+import {AuthService} from '../../../services/auth/auth.service';
 
 let editStudentPage: EditStudentPage;
 let fixture: ComponentFixture<EditStudentPage>;
@@ -29,11 +33,15 @@ describe('Page: Edit Student Page', () => {
                 ConnectionBackend,
                 GradeService,
                 StudentService,
-                StudentEvents
+                StudentEvents,
+              ErrorEvents,
+              ToastEvents,
+              AuthService
             ],
             imports: [
                 IonicModule.forRoot(MyApp),
-                HttpModule
+                HttpModule,
+                EnvironmentsModule
             ]
         }).compileComponents();
     }));

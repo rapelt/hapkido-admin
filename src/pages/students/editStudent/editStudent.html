@@ -32,6 +32,11 @@
       </ion-item>
 
       <ion-item>
+        <ion-label>Joining Date</ion-label>
+        <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" formControlName="joiningDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
         <ion-label>Grade</ion-label>
         <ion-select formControlName="grade">
           <ion-option *ngFor="let grade of grades" [value]="grade.id">{{grade.longName}}</ion-option>

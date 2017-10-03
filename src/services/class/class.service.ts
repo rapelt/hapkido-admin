@@ -157,15 +157,27 @@ export class ClassService {
   getLastClassAStudentHasAttended(studentId): Moment{
     const classes = this.sortClassesReverse(this.classes);
 
-    var theLastClass = _.find(classes, (aclass: Class) =>{
+    const theLastClass = _.find(classes, (aclass: Class) =>{
       return _.contains(aclass.attendance, studentId)
     });
+
     if(theLastClass){
       return theLastClass.date;
     }
 
     return null;
 
+  }
+
+  studentHasMissedToManyClasses(student){
+    let lastClassStudentAttended = this.getLastClassAStudentHasAttended(student.hbId);
+    if (lastClassStudentAttended !== null) {
+      if (lastClassStudentAttended.isBefore(moment().subtract(4, 'weeks'))) {
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 
   repeat(){

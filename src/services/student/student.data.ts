@@ -42,6 +42,14 @@ export class StudentData {
         return this.http.post(this.userUrl + "reactivate/" + hbId, null, this.getHeaders()).map((response: Response) => response.json()).share();
     }
 
+    addGrading(hbId: string, grading): Observable<Student> {
+        return this.http.post(this.userUrl + "addGrading/" + hbId, grading, this.getHeaders()).map((response: Response) => response.json()).share();
+    }
+
+    removeGrading(hbId: string, grading): Observable<Student> {
+        return this.http.post(this.userUrl + "removeGrading/" + hbId, grading, this.getHeaders()).map((response: Response) => response.json()).share();
+    }
+
     getHeaders() {
         return new Headers(
           {

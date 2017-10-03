@@ -6,6 +6,7 @@ import {GradeService} from '../../../services/grade.service';
 import {StudentService} from '../../../services/student/student.service';
 import * as moment from 'moment';
 import {ClassService} from '../../../services/class/class.service';
+import {Moment} from 'moment';
 
 @Component({
   selector: 'page-viewStudent',
@@ -13,6 +14,9 @@ import {ClassService} from '../../../services/class/class.service';
 })
 export class ViewStudentPage implements OnInit{
   student: Student;
+  lastClassStudentAttended: Moment;
+  lastGradingDate: Moment;
+  joiningDate: Moment
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,20 +29,13 @@ export class ViewStudentPage implements OnInit{
 
   ngOnInit(){
       this.student = this.navParams.get('student');
+      this.lastClassStudentAttended = this.classService.getLastClassAStudentHasAttended(this.student.hbId);
+      this.lastGradingDate = this.studentService.getLastGrading(this.student);
+      this.joiningDate = this.studentService.getJoiningDate(this.student);
   }
 
   studentHasMissedToManyClasses(): boolean {
-    if(this.student.hbId){
-      if (this.classService.getLastClassAStudentHasAttended(this.student.hbId)) {
-        if (this.classService.getLastClassAStudentHasAttended(this.student.hbId).isBefore(moment().subtract(4, 'weeks'))) {
-          return true;
-        }
-        return false;
-      }
-      return true;
-    }
-    return false;
-
+    return this.classService.studentHasMissedToManyClasses(this.student);
   }
 
   presentActionSheet() {

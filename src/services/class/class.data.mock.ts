@@ -40,4 +40,8 @@ export class ClassDataMock {
   removeStudentFromClass(studentId: string, classId: string){
     return Observable.of(ClassDataMock.classes[0]);
   }
+
+  getTodaysClasses(){
+    return Observable.of(ClassDataMock.classes);
+  }
 }

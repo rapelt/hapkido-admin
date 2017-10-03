@@ -1,0 +1,5 @@
+<!-- Generated template for the GradeBadgeComponent component -->
+<ion-badge item-end [ngClass]="gradeService.getCssClass(grade)">
+  <span *ngIf="!longName">{{gradeService.getShortDisplayName(grade)}}</span>
+  <span *ngIf="longName">{{gradeService.getLongDisplayName(grade)}}</span>
+</ion-badge>

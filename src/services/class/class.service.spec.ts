@@ -10,8 +10,10 @@ import * as moment from 'moment';
 import {ClassData} from "./class.data";
 import {ClassEvents} from "./class.events";
 import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
+import {ErrorEvents} from '../error.events';
+import {ToastEvents} from '../toast.events';
 
-describe('Student Service', () => {
+describe('Class Service', () => {
 
   beforeEach(() => {
 
@@ -22,6 +24,8 @@ describe('Student Service', () => {
         ClassData,
         ClassEvents,
         {provide: XHRBackend, useClass: MockBackend},
+        ErrorEvents,
+        ToastEvents
       ]
     });
   });

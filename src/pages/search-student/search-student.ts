@@ -26,8 +26,8 @@ export class SearchStudentPage implements OnInit{
     this.viewCtrl.dismiss();
   }
 
-  addStudentToClass(index, student){
-    this.viewCtrl.dismiss(student);
+  addStudentToClass(event){
+    this.viewCtrl.dismiss(event);
   }
 
   setFilteredItems() {

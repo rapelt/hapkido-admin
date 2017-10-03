@@ -14,6 +14,9 @@ import {Observable} from "rxjs";
 import {Class} from "../../../models/class";
 import * as moment from "moment";
 import {FormArray, FormControl} from "@angular/forms";
+import {EnvironmentsModule} from '../../../app/enviroment/enviroment.module';
+import {ToastEvents} from '../../../services/toast.events';
+import {ErrorEvents} from '../../../services/error.events';
 
 let addClassesPage: AddClassesPage;
 let fixture: ComponentFixture<AddClassesPage>;
@@ -55,11 +58,14 @@ describe('Page: AddClasses Page', () => {
         Http,
         ClassService,
         ClassEvents,
-        ConnectionBackend
+        ConnectionBackend,
+        ErrorEvents,
+        ToastEvents
       ],
       imports: [
         IonicModule.forRoot(MyApp),
-        HttpModule
+        HttpModule,
+        EnvironmentsModule
       ]
     }).compileComponents();
   }));

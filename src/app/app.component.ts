@@ -8,6 +8,7 @@ import {StudentsPage} from "../pages/students/students";
 import {ClassesPage} from "../pages/classes/classes";
 import {SelectClassPage} from "../pages/attendance/selectClass";
 import firebase from 'firebase';
+import {GradesPage} from '../pages/grades/grades';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,10 +21,15 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyDejeeCDRpDwDi3gCqHUDqjeIF-8dbJKFo",
-      authDomain: "hapkido-signin.firebaseapp.com"
-    });
+    try{
+      firebase.initializeApp({
+        apiKey: "AIzaSyDejeeCDRpDwDi3gCqHUDqjeIF-8dbJKFo",
+        authDomain: "hapkido-signin.firebaseapp.com"
+      });
+    } catch (err){
+      console.log('Firebase is already initialize');
+    }
+
 
     this.initializeApp();
 
@@ -33,8 +39,8 @@ export class MyApp {
       { title: 'Students', component: StudentsPage, icon: 'people'},
       { title: 'Classes', component: ClassesPage, icon: 'calendar'},
        { title: 'Attendance', component: SelectClassPage, icon: 'alarm'},
-      /*{ title: 'Gradings', component: GradesPage, icon: 'trending-up'},
-       { title: 'Techniques', component: Home, icon: 'videocam'},
+      { title: 'Gradings', component: GradesPage, icon: 'trending-up'},
+      /* { title: 'Techniques', component: Home, icon: 'videocam'},
        { title: 'Documents', component: Home, icon: 'paper'},
        { title: 'Translations', component: Home, icon: 'mic'},
        { title: 'Feedback', component: FeedbackPage, icon: 'chatbubbles'},

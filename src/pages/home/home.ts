@@ -2,8 +2,9 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { EnvVariables } from '../../app/enviroment/enviroment.token';
 import {ClassService} from '../../services/class/class.service';
-import {Moment} from "moment";
+import {Moment} from 'moment';
 import * as moment from 'moment';
+import {StudentService} from '../../services/student/student.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class HomePage implements OnInit, OnDestroy{
 
   today: Moment = moment();
 
-  constructor(public navCtrl: NavController, @Inject(EnvVariables) public envVariables, private classService: ClassService) {
+  constructor(public navCtrl: NavController, @Inject(EnvVariables) public envVariables, private classService: ClassService, private studentService: StudentService) {
   }
 
   ngOnInit(){
@@ -24,6 +25,7 @@ export class HomePage implements OnInit, OnDestroy{
 
     this.classService.getTodaysClasses();
     this.classService.getAllClasses();
+    this.studentService.getAllStudents();
 
     this.environment = this.envVariables.environmentName;
   }

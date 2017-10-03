@@ -7,6 +7,8 @@ import {GradeService} from "../../../services/grade.service";
 import {StudentService} from "../../../services/student/student.service";
 import {ClassTypes} from "../../../models/classType";
 import {AuthService} from "../../../services/auth/auth.service";
+import * as moment from 'moment';
+import {GradingDates} from '../../../models/gradingDates';
 
 @Component({
   selector: 'page-editStudent',
@@ -36,7 +38,8 @@ export class EditStudentPage implements OnInit{
 
     if(this.mode === 'New'){
       const name = new Name('', '');
-      this.student = new Student(name, 'hb', '0000', 0, false, [], [], true, false, 'Adults');
+      const gradingDate = new GradingDates(moment(), 0);
+      this.student = new Student(name, 'hb', '0000', 0, false, [gradingDate], [], true, false, 'Adults');
     }
 
     if(this.mode === 'Edit'){
@@ -51,7 +54,8 @@ export class EditStudentPage implements OnInit{
       'lastname' : new FormControl(this.student.name.lastname, Validators.required),
       'hbid' : new FormControl({value: this.student.hbId, disabled: this.mode === 'Edit'}, [Validators.required, Validators.pattern(/hb+\d{3}$/)]),
       'pin' : new FormControl({value: this.student.pinNumber, disabled: this.mode === 'New'}),
-      'grade' : new FormControl(this.student.grade, Validators.required),
+      'joiningDate' : new FormControl({value: this.student.gradingDates[0].date.toDate().toISOString(), disabled: this.mode === 'Edit'}, Validators.required),
+      'grade' : new FormControl({value: this.student.grade, disabled: this.mode === 'Edit'}, Validators.required),
       'preferredClass': new FormControl(this.student.preferredClass, Validators.required),
       'isKumdoStudent': new FormControl(this.student.isKumdoStudent, Validators.required),
     });
@@ -64,7 +68,10 @@ export class EditStudentPage implements OnInit{
     this.student.grade = studentFormValues.grade;
     this.student.preferredClass = studentFormValues.preferredClass;
     this.student.isKumdoStudent = studentFormValues.isKumdoStudent;
+
     if(this.mode === 'New'){
+      this.student.gradingDates = [{'date': moment(studentFormValues.joiningDate), 'grade': this.student.grade}];
+
       this.student.hbId = studentFormValues.hbid;
       this.createStudent();
     }

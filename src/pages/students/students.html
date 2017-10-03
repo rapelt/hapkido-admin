@@ -7,7 +7,7 @@
     <ion-title>Students</ion-title>
 
     <ion-buttons end>
-      <search-student [students]="allStudents" (selectedStudent)="searchedStudent($event)"></search-student>
+      <search-student [students]="allStudents" (selectedStudent)="studentSelected($event)"></search-student>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -26,18 +26,11 @@
 
   <div [ngSwitch]="activeStatus" padding>
     <ion-list *ngSwitchCase="'active'">
-      <button ion-item *ngFor="let student of students[0] | alphabeticalstudents" [navPush]="viewStudentPage" [navParams]="{ student: student}">
-        <ion-icon color="danger" name="alert" *ngIf="studentHasMissedToManyClasses(student)"></ion-icon>
-        <span>{{student.name.firstname}} {{student.name.lastname}}</span>
-        <span item-end> {{gradeService.getShortDisplayName(student.grade)}}</span>
-      </button>
+      <student-list [studentList]="students[0]" [shouldDisplayClassesMissed]="true" (studentSelected)="studentSelected($event)"></student-list>
     </ion-list>
 
     <ion-list *ngSwitchCase="'inactive'">
-      <button ion-item *ngFor="let student of students[1] | alphabeticalstudents" [navPush]="viewStudentPage" [navParams]="{ student: student}">
-        <span>{{student.name.firstname}} {{student.name.lastname}}</span>
-        <span item-end>{{gradeService.getShortDisplayName(student.grade)}}</span>
-      </button>
+      <student-list [studentList]="students[1]" [shouldDisplayClassesMissed]="false" (studentSelected)="studentSelected($event)"></student-list>
     </ion-list>
   </div>
 

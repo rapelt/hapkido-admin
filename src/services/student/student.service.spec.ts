@@ -9,6 +9,8 @@ import {StudentData} from "./student.data";
 import {StudentEvents} from "./student.events";
 import {StudentDataMock} from "./student.data.mock";
 import {EnvironmentsModule} from "../../app/enviroment/enviroment.module";
+import {ToastEvents} from '../toast.events';
+import {ErrorEvents} from '../error.events';
 
 describe('Student Service', () => {
 
@@ -21,6 +23,8 @@ describe('Student Service', () => {
         {provide: StudentData, useClass: StudentDataMock},
         StudentEvents,
         {provide: XHRBackend, useClass: MockBackend},
+        ToastEvents,
+        ErrorEvents
       ]
     });
   });

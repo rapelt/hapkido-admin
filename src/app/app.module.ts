@@ -38,6 +38,10 @@ import {ErrorComponent} from '../components/error/error';
 import { ToastComponent } from '../components/toast/toast';
 import {ToastEvents} from '../services/toast.events';
 import { PrioritiseSelectedClassPipe } from '../pipes/prioritise-selected-class/prioritise-selected-class';
+import {GradesPage} from '../pages/grades/grades';
+import {GradingAttendancePage} from '../pages/grading-attendance/grading-attendance';
+import { StudentListComponent } from '../components/student-list/student-list';
+import { GradeBadgeComponent } from '../components/grade-badge/grade-badge';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { PrioritiseSelectedClassPipe } from '../pipes/prioritise-selected-class/
     SearchStudentComponent,
     ErrorComponent,
     ToastComponent,
-    PrioritiseSelectedClassPipe
+    PrioritiseSelectedClassPipe,
+    GradesPage,
+    GradingAttendancePage,
+    StudentListComponent,
+    GradeBadgeComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +87,9 @@ import { PrioritiseSelectedClassPipe } from '../pipes/prioritise-selected-class/
     AddClassesPage,
     SelectClassPage,
     ClassAttendancePage,
-    SearchStudentPage
+    SearchStudentPage,
+    GradesPage,
+    GradingAttendancePage
   ],
   providers: [
     StatusBar,

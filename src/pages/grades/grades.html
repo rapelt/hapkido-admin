@@ -1,0 +1,33 @@
+<!--
+  Generated template for the GradesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Students</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item no-lines *ngIf="preselectedDates.length > 0">
+    <calendar (change)="onPeriodChange($event)" [preselectedValues]="preselectedDates" [maxDate]="maxDate" [selectionType]="'single'"></calendar>
+  </ion-item>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Select Grading</ion-item-divider>
+    <ion-list>
+      <button ion-item *ngFor="let class of gradingsOnDay" [navPush]="gradingAttendancePage" [navParams]="{'aclass' : class}">
+        <span>{{class.date.calendar(null, {sameElse: 'ddd, DD/MM/YYYY, h:mm a'})}}</span>
+      </button>
+    </ion-list>
+  </ion-item-group>
+
+</ion-content>

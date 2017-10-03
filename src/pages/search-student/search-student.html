@@ -1,7 +1,10 @@
 <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
 
 <ion-list>
-  <button ion-item *ngFor="let student of filteredStudents | alphabeticalstudents; let i = index" (click)="addStudentToClass(i, student)">
+  <student-list [studentList]="filteredStudents" [shouldDisplayClassesMissed]="true" (studentSelected)="addStudentToClass($event)"></student-list>
+
+
+<!--  <button ion-item *ngFor="let student of filteredStudents | alphabeticalstudents; let i = index" (click)="addStudentToClass(i, student)">
     {{student.name.firstname}} {{student.name.lastname}}
-  </button>
+  </button>-->
 </ion-list>
