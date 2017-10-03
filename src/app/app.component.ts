@@ -7,7 +7,7 @@ import { HomePage } from '../pages/home/home';
 import {StudentsPage} from "../pages/students/students";
 import {ClassesPage} from "../pages/classes/classes";
 import {SelectClassPage} from "../pages/attendance/selectClass";
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import {GradesPage} from '../pages/grades/grades';
 
 @Component({
